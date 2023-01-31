@@ -1,5 +1,7 @@
 # Jetpack Compose Movie App (Compose + Flow + Hilt + Room + MVVM + Clean)
 
+<img width="1141" alt="image" src="https://user-images.githubusercontent.com/30916886/215865185-2c72f73b-7eda-43a5-955f-103d195cecc5.png">
+
 This is an example of an Android App who uses Jetpack Compose to draw the UI, Kotlin Coroutines Flow to retrieve a list of the recent movies from https://www.themoviedb.org.
 
 ## How use this app
@@ -22,6 +24,8 @@ https://user-images.githubusercontent.com/30916886/215861649-3c5db74d-0049-49e3-
 # References
 
 - Jetpack Compose doc https://developer.android.com/jetpack/compose
+
+- Design https://dribbble.com/shots/18839708-Movie-Tickets-Mobile-App
 
 - Build custom bottom navigation Bar https://www.boltuix.com/2022/08/custom-bottom-navigation-bar.html
 
