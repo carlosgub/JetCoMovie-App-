@@ -2,6 +2,9 @@
 
 This is an example of an Android App who uses Jetpack Compose to draw the UI, Kotlin Coroutines Flow to retrieve a list of the recent movies from https://www.themoviedb.org.
 
+## How use this app
+- Request an api key from themoviedb https://developers.themoviedb.org/3/getting-started/authentication and later put that key in the build.gradle app file.
+<img width="474" alt="image" src="https://user-images.githubusercontent.com/30916886/215863998-a1dc026c-3b3c-45c6-a8fc-478302d85b6a.png">
 
 ## V2 (Working)
 - Add some unit test to the coroutines
