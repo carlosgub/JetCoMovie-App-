@@ -12,7 +12,9 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - Add the Tickets View
 
 ## Screenshots
-<img src="/video/preview.mp4" height="700" />
+
+https://user-images.githubusercontent.com/30916886/215861649-3c5db74d-0049-49e3-a3ff-2b2053bd45b2.mp4
+
 
 # References
 
