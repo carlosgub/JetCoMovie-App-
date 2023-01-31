@@ -1,6 +1,7 @@
-# Jetpack Compose Movie App
+# Jetpack Compose Movie App (Compose + Flow + Hilt + Room + MVVM + Clean)
 
 This is an example of an Android App who uses Jetpack Compose to draw the UI, Kotlin Coroutines Flow to retrieve a list of the recent movies from https://www.themoviedb.org.
+
 
 ## V2 (Working)
 - Add some unit test to the coroutines
@@ -11,7 +12,7 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - Add the Tickets View
 
 ## Screenshots
-<img src="/video/preview.gif" height="700" />
+<img src="/video/preview.mp4" height="700" />
 
 # References
 
