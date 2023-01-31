@@ -34,6 +34,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 import com.example.moviejetpackcompose.features.movie.ui.state.MovieUiState
@@ -65,8 +69,13 @@ fun MovieScreen(viewModel: MovieViewModel) {
         val (pager, progress) = createRefs()
         val pagerState = rememberPagerState()
         val list = getListFromUiState(uiState)
+        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+        val progressLottie by animateLottieCompositionAsState(composition)
+
         if (showLoading(uiState)) {
-            CircularProgressIndicator(
+            LottieAnimation(
+                composition = composition,
+                progress = { progressLottie },
                 modifier = Modifier.constrainAs(progress) {
                     linkTo(
                         start = parent.start,
