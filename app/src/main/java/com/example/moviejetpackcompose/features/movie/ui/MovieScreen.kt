@@ -9,13 +9,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.runtime.*
@@ -26,6 +21,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,6 +34,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 import com.example.moviejetpackcompose.features.movie.ui.state.MovieUiState
 import com.example.moviejetpackcompose.ui.theme.BlackChip
@@ -62,27 +59,42 @@ fun MovieScreen(viewModel: MovieViewModel) {
         }
     )
 
-
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
+        val (pager, progress) = createRefs()
         val pagerState = rememberPagerState()
-        val (pager) = createRefs()
         val list = getListFromUiState(uiState)
-        HorizontalPager(count = list.size,
-            state = pagerState,
-            contentPadding = PaddingValues(horizontal = 50.dp),
-            modifier = Modifier
-                .constrainAs(pager) {
+        if (showLoading(uiState)) {
+            CircularProgressIndicator(
+                modifier = Modifier.constrainAs(progress) {
                     linkTo(
                         start = parent.start,
                         end = parent.end
                     )
-                    top.linkTo(parent.top, 24.dp)
-                }) { page ->
-            val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-            MovieItem(pageOffset, pagerState, page, movieModel = list[page])
+                    linkTo(
+                        top = parent.top,
+                        bottom = parent.bottom
+                    )
+                }
+            )
+        } else {
+            HorizontalPager(count = list.size,
+                state = pagerState,
+                contentPadding = PaddingValues(horizontal = 50.dp),
+                modifier = Modifier
+                    .constrainAs(pager) {
+                        linkTo(
+                            start = parent.start,
+                            end = parent.end
+                        )
+                        top.linkTo(parent.top, 24.dp)
+                    }) { page ->
+                val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                MovieItem(pageOffset, pagerState, page, movieModel = list[page])
+            }
         }
+
     }
 }
 
@@ -181,7 +193,7 @@ fun MoviePoster(pageOffset: Float, movieModel: MovieModel, modifier: Modifier) {
                 .data(movieModel.getImagePath())
                 .crossfade(true)
                 .build(),
-//            placeholder = painterResource(R.drawable.placeholder),
+            placeholder = painterResource(R.drawable.placeholder),
             contentDescription = "movie poster",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()
@@ -342,5 +354,13 @@ private fun getListFromUiState(
     is MovieUiState.Success -> {
         uiState.movies
     }
+}
+
+private fun showLoading(
+    uiState: MovieUiState,
+): Boolean = when (uiState) {
+    is MovieUiState.Error -> false
+    MovieUiState.Loading -> true
+    is MovieUiState.Success -> false
 }
 
