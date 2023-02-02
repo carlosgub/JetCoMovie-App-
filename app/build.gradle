@@ -94,6 +94,10 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.5.0'
     implementation 'androidx.room:room-ktx:2.5.0'
 
+    //Livedata
+    implementation 'androidx.compose.runtime:runtime-livedata:1.3.3'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+
     //Lottie
     implementation "com.airbnb.android:lottie-compose:5.2.0"
 
