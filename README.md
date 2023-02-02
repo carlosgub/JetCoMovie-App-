@@ -10,7 +10,7 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 
 ## V2 (Working)
 - Add the Movie Detail View (Commited in the main branch)
-- Add logic to the booking buttom in the Movie Detail View to save in the room database to use later in the Tickets View
+- Add logic to the booking buttom in the Movie Detail View save the movie in the database to later use this database for the Tickets View
 
 ## V3
 - Add the Search View
