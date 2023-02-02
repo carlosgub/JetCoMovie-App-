@@ -33,6 +33,7 @@ import com.example.moviejetpackcompose.features.movie.ui.MovieScreen
 import com.example.moviejetpackcompose.features.movie.ui.MovieViewModel
 import com.example.moviejetpackcompose.features.profile.ui.ProfileScreen
 import com.example.moviejetpackcompose.features.search.ui.SearchScreen
+import com.example.moviejetpackcompose.features.search.ui.SearchViewModel
 import com.example.moviejetpackcompose.features.ticket.ui.TicketScreen
 import com.example.moviejetpackcompose.features.ticket.ui.TicketViewModel
 import com.example.moviejetpackcompose.ui.theme.ClearRed
@@ -42,6 +43,7 @@ import com.example.moviejetpackcompose.ui.theme.Red
 fun HomeScreen(
     movieViewModel: MovieViewModel,
     ticketViewModel: TicketViewModel,
+    searchViewModel: SearchViewModel,
     mainNavController: NavHostController
 ) {
     val navController = rememberNavController()
@@ -54,6 +56,7 @@ fun HomeScreen(
             movieViewModel = movieViewModel,
             mainNavController = mainNavController,
             ticketViewModel = ticketViewModel,
+            searchViewModel = searchViewModel,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = paddingValues.calculateBottomPadding())
@@ -231,6 +234,7 @@ fun BottomNavGraph(
     mainNavController: NavHostController,
     movieViewModel: MovieViewModel,
     ticketViewModel: TicketViewModel,
+    searchViewModel: SearchViewModel,
     modifier: Modifier
 ) {
     NavHost(
@@ -245,7 +249,10 @@ fun BottomNavGraph(
             )
         }
         composable(route = BottomBarScreen.Search.route) {
-            SearchScreen()
+            SearchScreen(
+                viewModel = searchViewModel,
+                mainNavController = mainNavController
+            )
         }
         composable(route = BottomBarScreen.Ticket.route) {
             TicketScreen(

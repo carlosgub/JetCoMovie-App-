@@ -2,6 +2,7 @@ package com.example.moviejetpackcompose.core.di
 
 import com.example.moviejetpackcompose.features.detail.data.network.DetailClient
 import com.example.moviejetpackcompose.features.movie.data.network.MovieClient
+import com.example.moviejetpackcompose.features.search.data.network.SearchClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,4 +32,9 @@ class NetworkModule {
     @Provides
     fun providesDetailClient(retrofit: Retrofit): DetailClient =
         retrofit.create(DetailClient::class.java)
+
+    @Singleton
+    @Provides
+    fun providesSearchClient(retrofit: Retrofit): SearchClient =
+        retrofit.create(SearchClient::class.java)
 }

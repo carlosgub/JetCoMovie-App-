@@ -20,6 +20,7 @@ import com.example.moviejetpackcompose.features.detail.ui.DetailScreen
 import com.example.moviejetpackcompose.features.detail.ui.DetailViewModel
 import com.example.moviejetpackcompose.features.home.ui.HomeScreen
 import com.example.moviejetpackcompose.features.movie.ui.MovieViewModel
+import com.example.moviejetpackcompose.features.search.ui.SearchViewModel
 import com.example.moviejetpackcompose.features.ticket.ui.TicketViewModel
 import com.example.moviejetpackcompose.ui.theme.MovieJetpackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
         val movieViewModel: MovieViewModel by viewModels()
         val detailViewModel: DetailViewModel by viewModels()
         val ticketViewModel: TicketViewModel by viewModels()
+        val searchViewModel: SearchViewModel by viewModels()
         setContent {
             MovieJetpackComposeTheme {
                 Surface(
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
                                 HomeScreen(
                                     movieViewModel = movieViewModel,
                                     ticketViewModel = ticketViewModel,
+                                    searchViewModel = searchViewModel,
                                     mainNavController = navController
                                 )
                             }
