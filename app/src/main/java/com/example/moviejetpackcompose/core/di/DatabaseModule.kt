@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.moviejetpackcompose.core.database.MovieDatabase
 import com.example.moviejetpackcompose.features.detail.data.database.MovieDetailDao
 import com.example.moviejetpackcompose.features.movie.data.database.CategoryDao
+import com.example.moviejetpackcompose.features.ticket.data.database.TicketDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +25,11 @@ class DatabaseModule {
     @Provides
     fun provideMovieDetailDao(movieDatabase: MovieDatabase): MovieDetailDao {
         return movieDatabase.movieDetailDao()
+    }
+
+    @Provides
+    fun provideTicketDao(movieDatabase: MovieDatabase): TicketDao {
+        return movieDatabase.ticketDao()
     }
 
     @Provides

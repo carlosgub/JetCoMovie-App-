@@ -3,6 +3,7 @@ package com.example.moviejetpackcompose.features.home.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,24 +34,29 @@ import com.example.moviejetpackcompose.features.movie.ui.MovieViewModel
 import com.example.moviejetpackcompose.features.profile.ui.ProfileScreen
 import com.example.moviejetpackcompose.features.search.ui.SearchScreen
 import com.example.moviejetpackcompose.features.ticket.ui.TicketScreen
+import com.example.moviejetpackcompose.features.ticket.ui.TicketViewModel
 import com.example.moviejetpackcompose.ui.theme.ClearRed
 import com.example.moviejetpackcompose.ui.theme.Red
 
 @Composable
 fun HomeScreen(
     movieViewModel: MovieViewModel,
+    ticketViewModel: TicketViewModel,
     mainNavController: NavHostController
 ) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         backgroundColor = Color.Black
-    ) {
-        Modifier.padding(it)
+    ) { paddingValues ->
         BottomNavGraph(
             navController = navController,
             movieViewModel = movieViewModel,
-            mainNavController = mainNavController
+            mainNavController = mainNavController,
+            ticketViewModel = ticketViewModel,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = paddingValues.calculateBottomPadding())
         )
     }
 }
@@ -223,24 +229,30 @@ fun AddItem(
 fun BottomNavGraph(
     navController: NavHostController,
     mainNavController: NavHostController,
-    movieViewModel: MovieViewModel
+    movieViewModel: MovieViewModel,
+    ticketViewModel: TicketViewModel,
+    modifier: Modifier
 ) {
     NavHost(
         navController = navController,
         startDestination = BottomBarScreen.Movie.route,
+        modifier = modifier
     ) {
-
         composable(route = BottomBarScreen.Movie.route) {
             MovieScreen(
-                movieViewModel,
-                mainNavController
+                viewModel = movieViewModel,
+                navController = mainNavController
             )
         }
         composable(route = BottomBarScreen.Search.route) {
             SearchScreen()
         }
         composable(route = BottomBarScreen.Ticket.route) {
-            TicketScreen()
+            TicketScreen(
+                viewModel = ticketViewModel,
+                navController = navController,
+                mainNavController = mainNavController
+            )
         }
         composable(route = BottomBarScreen.Profile.route) {
             ProfileScreen()

@@ -74,6 +74,20 @@ fun MovieModel.toMovieEntity(): MovieEntity {
     )
 }
 
+fun MovieEntity.toMovieModel(): MovieModel {
+    return MovieModel(
+        id = id,
+        originalTitle = originalTitle,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        voteAverage = voteAverage,
+        voteCount = voteCount,
+        categories = categories,
+        runtime = runtime,
+        overview = overview
+    )
+}
+
 fun Int?.minutesToTimeString(): String? {
     return if (this == null) {
         null

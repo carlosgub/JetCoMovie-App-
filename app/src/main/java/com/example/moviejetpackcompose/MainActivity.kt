@@ -20,6 +20,7 @@ import com.example.moviejetpackcompose.features.detail.ui.DetailScreen
 import com.example.moviejetpackcompose.features.detail.ui.DetailViewModel
 import com.example.moviejetpackcompose.features.home.ui.HomeScreen
 import com.example.moviejetpackcompose.features.movie.ui.MovieViewModel
+import com.example.moviejetpackcompose.features.ticket.ui.TicketViewModel
 import com.example.moviejetpackcompose.ui.theme.MovieJetpackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,9 +30,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val movieViewModel: MovieViewModel by viewModels()
         val detailViewModel: DetailViewModel by viewModels()
+        val ticketViewModel: TicketViewModel by viewModels()
         setContent {
             MovieJetpackComposeTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -41,7 +42,11 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = "home",
                             content = {
-                                HomeScreen(movieViewModel, navController)
+                                HomeScreen(
+                                    movieViewModel = movieViewModel,
+                                    ticketViewModel = ticketViewModel,
+                                    mainNavController = navController
+                                )
                             }
                         )
                         composable(

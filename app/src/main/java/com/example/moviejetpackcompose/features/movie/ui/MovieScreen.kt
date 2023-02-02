@@ -7,10 +7,8 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
@@ -19,10 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,15 +30,13 @@ import androidx.constraintlayout.compose.Visibility
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
+import com.example.moviejetpackcompose.ui.views.MoviePoster
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
 
@@ -123,11 +116,15 @@ fun MovieItem(
     ) {
         val (movieCard, textMovieContainer) = createRefs()
         MoviePoster(
-            pageOffset = pageOffset,
-            movieModel = movieModel,
+            imagePath = movieModel.getImagePath(),
+            size = 450.dp,
             modifier = Modifier
+                .fillMaxHeight(0.66f)
                 .clickable {
                     goToMovieDetail(movieModel.id)
+                }
+                .graphicsLayer {
+                    animationMovieItem(pageOffset)
                 }
                 .constrainAs(movieCard) {
                     linkTo(
@@ -146,6 +143,7 @@ fun MovieItem(
                 animationSpec = spring(stiffness = Spring.StiffnessVeryLow)
             ),
             modifier = Modifier
+                .fillMaxHeight(0.34f)
                 .constrainAs(textMovieContainer) {
                     linkTo(
                         start = parent.start,
@@ -195,30 +193,6 @@ fun MovieItem(
             }
         }
 
-    }
-}
-
-@Composable
-fun MoviePoster(pageOffset: Float, movieModel: MovieModel, modifier: Modifier) {
-    Card(
-        shape = MaterialTheme.shapes.medium.copy(CornerSize(25.dp)),
-        border = BorderStroke(0.5.dp, Color.Gray),
-        modifier = modifier
-            .height(450.dp)
-            .graphicsLayer {
-                animationMovieItem(pageOffset)
-            }
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(movieModel.getImagePath())
-                .crossfade(true)
-                .build(),
-            placeholder = painterResource(R.drawable.placeholder),
-            contentDescription = "movie poster",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxSize()
-        )
     }
 }
 
