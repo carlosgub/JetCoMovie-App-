@@ -3,15 +3,12 @@ package com.example.moviejetpackcompose.features.movie.data
 import com.example.moviejetpackcompose.features.movie.data.database.CategoryDao
 import com.example.moviejetpackcompose.features.movie.data.database.model.CategoryEntity
 import com.example.moviejetpackcompose.features.movie.data.network.MovieService
-import com.example.moviejetpackcompose.features.movie.data.network.response.MovieResponse
 import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 import com.example.moviejetpackcompose.helpers.toMovieModel
 import com.example.moviejetpackcompose.helpers.toMovieModelWithCategoriesResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

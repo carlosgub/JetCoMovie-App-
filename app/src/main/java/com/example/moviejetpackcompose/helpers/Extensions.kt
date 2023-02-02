@@ -1,5 +1,6 @@
 package com.example.moviejetpackcompose.helpers
 
+import com.example.moviejetpackcompose.features.detail.data.database.model.MovieEntity
 import com.example.moviejetpackcompose.features.detail.data.network.response.MovieDetailResponse
 import com.example.moviejetpackcompose.features.movie.data.database.model.CategoryEntity
 import com.example.moviejetpackcompose.features.movie.data.network.response.CategoriesResponse
@@ -55,6 +56,20 @@ fun MovieDetailResponse.toMovieModel(): MovieModel {
             it.name.orEmpty()
         },
         runtime = runtime.minutesToTimeString(),
+        overview = overview
+    )
+}
+
+fun MovieModel.toMovieEntity(): MovieEntity {
+    return MovieEntity(
+        id = id,
+        originalTitle = originalTitle,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        voteAverage = voteAverage,
+        voteCount = voteCount,
+        categories = categories,
+        runtime = runtime,
         overview = overview
     )
 }

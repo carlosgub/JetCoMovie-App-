@@ -2,8 +2,9 @@ package com.example.moviejetpackcompose.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.moviejetpackcompose.core.database.MovieDatabase
+import com.example.moviejetpackcompose.features.detail.data.database.MovieDetailDao
 import com.example.moviejetpackcompose.features.movie.data.database.CategoryDao
-import com.example.moviejetpackcompose.features.movie.data.database.CategoryDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,13 +17,18 @@ import javax.inject.Singleton
 class DatabaseModule {
 
     @Provides
-    fun provideTaskDao(categoryDatabase: CategoryDatabase): CategoryDao {
-        return categoryDatabase.categoryDao()
+    fun provideCategoryDao(movieDatabase: MovieDatabase): CategoryDao {
+        return movieDatabase.categoryDao()
+    }
+
+    @Provides
+    fun provideMovieDetailDao(movieDatabase: MovieDatabase): MovieDetailDao {
+        return movieDatabase.movieDetailDao()
     }
 
     @Provides
     @Singleton
-    fun provideTodoDatabase(@ApplicationContext appContext: Context): CategoryDatabase {
-        return Room.databaseBuilder(appContext, CategoryDatabase::class.java, "CATEGORY").build()
+    fun provideTodoDatabase(@ApplicationContext appContext: Context): MovieDatabase {
+        return Room.databaseBuilder(appContext, MovieDatabase::class.java, "CATEGORY").build()
     }
 }

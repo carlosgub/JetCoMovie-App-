@@ -1,5 +1,9 @@
+@file:OptIn(ExperimentalAnimationApi::class)
+
 package com.example.moviejetpackcompose.features.detail.ui
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -46,6 +50,7 @@ import com.example.moviejetpackcompose.ui.theme.ClearRed
 import com.example.moviejetpackcompose.ui.theme.Gold
 import com.example.moviejetpackcompose.ui.theme.GoldDarker
 import com.example.moviejetpackcompose.ui.theme.Red
+import com.example.moviejetpackcompose.ui.views.BlackVerticalGradient
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
 import java.math.RoundingMode
@@ -70,10 +75,25 @@ fun DetailScreen(
         }
     )
 
+    val bookingState by produceState<GenericState<Boolean>>(
+        initialValue = GenericState.Loading,
+        key1 = lifecycle,
+        key2 = viewModel,
+        producer = {
+            lifecycle.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                viewModel.bookingState.collect {
+                    value = it
+                }
+            }
+        }
+    )
+
     viewModel.getMovieDetail(id.toString())
+    viewModel.isMovieBookedState(id.toString())
 
     ConstraintLayout(
         modifier = Modifier
+            .fillMaxSize()
             .background(Color.Black)
     ) {
         val (loading, content, booking) = createRefs()
@@ -89,9 +109,9 @@ fun DetailScreen(
                 )
             })
         } else {
-            getDataFromUiState(uiState)?.let {
+            getDataFromUiState(uiState)?.let { movieModel ->
                 MovieDetailContent(
-                    movie = it,
+                    movie = movieModel,
                     navController = navController,
                     modifier = Modifier.constrainAs(content) {
                         linkTo(
@@ -104,8 +124,9 @@ fun DetailScreen(
                         )
                     }
                 )
-
+                val isMovieBooked = getDataFromUiState(bookingState) ?: false
                 Booking(
+                    isMovieBooked,
                     Modifier
                         .constrainAs(booking) {
                             linkTo(
@@ -115,7 +136,13 @@ fun DetailScreen(
                             bottom.linkTo(parent.bottom)
                             width = Dimension.fillToConstraints
                         }
-                )
+                ) {
+                    if (isMovieBooked) {
+                        viewModel.deleteBookingMovie(movieModel)
+                    } else {
+                        viewModel.bookingMovie(movieModel)
+                    }
+                }
             }
 
         }
@@ -268,27 +295,16 @@ fun MoviePosterDetail(path: String, modifier: Modifier) {
                     )
                 }
         )
-        Box(
-            modifier =
-            Modifier
-                .size(300.dp)
-                .background(
-                    Brush.verticalGradient(
-                        0.0f to Color.Black,
-                        0.5f to Color.Black,
-                        1.0f to Color.Transparent,
-                        startY = Float.POSITIVE_INFINITY,
-                        endY = 0f
-                    )
+        BlackVerticalGradient(
+            size = 300.dp,
+            modifier = Modifier.constrainAs(gradient) {
+                bottom.linkTo(parent.bottom)
+                linkTo(
+                    start = parent.start,
+                    end = parent.end
                 )
-                .constrainAs(gradient) {
-                    bottom.linkTo(parent.bottom)
-                    linkTo(
-                        start = parent.start,
-                        end = parent.end
-                    )
-                    width = Dimension.fillToConstraints
-                }
+                width = Dimension.fillToConstraints
+            }
         )
     }
 }
@@ -480,24 +496,18 @@ fun CategoriesChipsDetail(list: List<String>, modifier: Modifier) {
 }
 
 @Composable
-fun Booking(modifier: Modifier) {
+fun Booking(
+    isMovieBooked: Boolean,
+    modifier: Modifier,
+    onClick: () -> Unit
+) {
     ConstraintLayout(
         modifier = modifier.fillMaxWidth()
     ) {
         val (button, gradient) = createRefs()
-        Box(
-            modifier =
-            Modifier
-                .size(100.dp)
-                .background(
-                    Brush.verticalGradient(
-                        0.0f to Color.Black,
-                        0.5f to Color.Black,
-                        1.0f to Color.Transparent,
-                        startY = Float.POSITIVE_INFINITY,
-                        endY = 0f
-                    )
-                )
+        BlackVerticalGradient(
+            size = 100.dp,
+            modifier = Modifier
                 .constrainAs(gradient) {
                     bottom.linkTo(parent.bottom)
                     linkTo(
@@ -510,7 +520,7 @@ fun Booking(modifier: Modifier) {
 
         Button(
             onClick = {
-
+                onClick()
             },
             colors = ButtonDefaults.buttonColors(
                 contentColor = Color.White,
@@ -557,9 +567,8 @@ fun Booking(modifier: Modifier) {
                             start.linkTo(parent.start, 20.dp)
                         }
                 )
-                Text(
-                    text = "Booking",
-                    fontSize = 20.sp,
+                AnimatedContent(
+                    targetState = isMovieBooked,
                     modifier = Modifier
                         .constrainAs(text) {
                             linkTo(
@@ -575,7 +584,13 @@ fun Booking(modifier: Modifier) {
                                 endMargin = 20.dp
                             )
                         }
-                )
+                ) { targetState ->
+                    Text(
+                        text = if (targetState) "Remove Booking" else "Booking",
+                        fontSize = 20.sp
+                    )
+                }
+
             }
         }
     }
