@@ -4,24 +4,16 @@ class MovieModel(
     val id: Int,
     val originalTitle: String,
     val posterPath: String?,
-    val backdropPath: String?,
-    val popularity: Double?,
     val releaseDate: String?,
     val voteAverage: Double?,
     val voteCount: Int,
-    val categories: List<String>
+    val categories: List<String>,
+    val runtime: String? = null,
+    val overview: String? = null
 ) {
     fun getImagePath(): String {
         return if (posterPath != null) {
             "https://image.tmdb.org/t/p/w500${posterPath}"
-        } else {
-            "https://i.stack.imgur.com/GNhx0.png"
-        }
-    }
-
-    fun getBackdropImagePath(): String {
-        return if (backdropPath != null) {
-            "https://image.tmdb.org/t/p/w500${backdropPath}"
         } else {
             "https://i.stack.imgur.com/GNhx0.png"
         }

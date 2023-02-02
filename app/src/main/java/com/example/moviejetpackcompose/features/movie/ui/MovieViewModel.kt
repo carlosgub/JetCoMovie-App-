@@ -2,8 +2,9 @@ package com.example.moviejetpackcompose.features.movie.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.features.movie.model.GetNowPlayingMoviesUseCase
-import com.example.moviejetpackcompose.features.movie.ui.state.MovieUiState
+import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -13,16 +14,16 @@ class MovieViewModel @Inject constructor(
     getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase
 ) : ViewModel() {
 
-    val uiState: StateFlow<MovieUiState> = getNowPlayingMoviesUseCase()
+    val uiState: StateFlow<GenericState<List<MovieModel>>> = getNowPlayingMoviesUseCase()
         .map {
-            MovieUiState.Success(it) as MovieUiState
+            GenericState.Success(it)
         }
         .catch {
-            MovieUiState.Error(it.message.orEmpty()) as MovieUiState
+            GenericState.Error(it.message.orEmpty())
         }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            MovieUiState.Loading
+            GenericState.Loading
         )
 }

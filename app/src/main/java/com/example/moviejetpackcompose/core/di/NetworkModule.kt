@@ -1,5 +1,6 @@
 package com.example.moviejetpackcompose.core.di
 
+import com.example.moviejetpackcompose.features.detail.data.network.DetailClient
 import com.example.moviejetpackcompose.features.movie.data.network.MovieClient
 import dagger.Module
 import dagger.Provides
@@ -25,4 +26,9 @@ class NetworkModule {
     @Provides
     fun providesMovieClient(retrofit: Retrofit): MovieClient =
         retrofit.create(MovieClient::class.java)
+
+    @Singleton
+    @Provides
+    fun providesDetailClient(retrofit: Retrofit): DetailClient =
+        retrofit.create(DetailClient::class.java)
 }

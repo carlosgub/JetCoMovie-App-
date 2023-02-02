@@ -8,6 +8,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
@@ -32,26 +33,28 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.moviejetpackcompose.R
+import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
-import com.example.moviejetpackcompose.features.movie.ui.state.MovieUiState
-import com.example.moviejetpackcompose.ui.theme.BlackChip
+import com.example.moviejetpackcompose.helpers.getDataFromUiState
+import com.example.moviejetpackcompose.helpers.showLoading
+import com.example.moviejetpackcompose.ui.views.CategoryChip
+import com.example.moviejetpackcompose.ui.views.Loading
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun MovieScreen(viewModel: MovieViewModel) {
+fun MovieScreen(
+    viewModel: MovieViewModel,
+    navController: NavController
+) {
 
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    val uiState by produceState<MovieUiState>(
-        initialValue = MovieUiState.Loading,
+    val uiState by produceState<GenericState<List<MovieModel>>>(
+        initialValue = GenericState.Loading,
         key1 = lifecycle,
         key2 = viewModel,
         producer = {
@@ -68,14 +71,10 @@ fun MovieScreen(viewModel: MovieViewModel) {
     ) {
         val (pager, progress) = createRefs()
         val pagerState = rememberPagerState()
-        val list = getListFromUiState(uiState)
-        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
-        val progressLottie by animateLottieCompositionAsState(composition)
+        val list = getDataFromUiState(uiState) ?: listOf()
 
         if (showLoading(uiState)) {
-            LottieAnimation(
-                composition = composition,
-                progress = { progressLottie },
+            Loading(
                 modifier = Modifier.constrainAs(progress) {
                     linkTo(
                         start = parent.start,
@@ -98,9 +97,12 @@ fun MovieScreen(viewModel: MovieViewModel) {
                             end = parent.end
                         )
                         top.linkTo(parent.top, 24.dp)
-                    }) { page ->
+                    }
+            ) { page ->
                 val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                MovieItem(pageOffset, pagerState, page, movieModel = list[page])
+                MovieItem(pageOffset, pagerState, page, movieModel = list[page]) {
+                    navController.navigate("detail/$it")
+                }
             }
         }
 
@@ -108,7 +110,13 @@ fun MovieScreen(viewModel: MovieViewModel) {
 }
 
 @Composable
-fun MovieItem(pageOffset: Float, pagerState: PagerState, page: Int, movieModel: MovieModel) {
+fun MovieItem(
+    pageOffset: Float,
+    pagerState: PagerState,
+    page: Int,
+    movieModel: MovieModel,
+    goToMovieDetail: (Int) -> Unit
+) {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -117,6 +125,9 @@ fun MovieItem(pageOffset: Float, pagerState: PagerState, page: Int, movieModel: 
             pageOffset = pageOffset,
             movieModel = movieModel,
             modifier = Modifier
+                .clickable {
+                    goToMovieDetail(movieModel.id)
+                }
                 .constrainAs(movieCard) {
                     linkTo(
                         start = parent.start,
@@ -190,7 +201,7 @@ fun MovieItem(pageOffset: Float, pagerState: PagerState, page: Int, movieModel: 
 fun MoviePoster(pageOffset: Float, movieModel: MovieModel, modifier: Modifier) {
     Card(
         shape = MaterialTheme.shapes.medium.copy(CornerSize(25.dp)),
-        border = BorderStroke(0.25.dp, Color.Gray),
+        border = BorderStroke(0.5.dp, Color.Gray),
         modifier = modifier
             .height(450.dp)
             .graphicsLayer {
@@ -316,26 +327,6 @@ fun MovieCategories(
     }
 }
 
-@Composable
-fun CategoryChip(category: String?, modifier: Modifier) {
-    if (category != null) {
-        Card(
-            shape = MaterialTheme.shapes.medium.copy(CornerSize(25.dp)),
-            backgroundColor = BlackChip,
-            modifier = modifier
-        ) {
-            Text(
-                text = category,
-                color = Color.White,
-                modifier = Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 12.dp
-                )
-            )
-        }
-    }
-}
-
 
 //This code is from https://google.github.io/accompanist/pager/#item-scroll-effects
 private fun GraphicsLayerScope.animationMovieItem(pageOffset: Float) {
@@ -353,23 +344,5 @@ private fun GraphicsLayerScope.animationMovieItem(pageOffset: Float) {
         stop = 1f,
         fraction = 1f - pageOffset.coerceIn(0f, 1f)
     )
-}
-
-private fun getListFromUiState(
-    uiState: MovieUiState,
-): List<MovieModel> = when (uiState) {
-    is MovieUiState.Error -> listOf()
-    MovieUiState.Loading -> listOf()
-    is MovieUiState.Success -> {
-        uiState.movies
-    }
-}
-
-private fun showLoading(
-    uiState: MovieUiState,
-): Boolean = when (uiState) {
-    is MovieUiState.Error -> false
-    MovieUiState.Loading -> true
-    is MovieUiState.Success -> false
 }
 

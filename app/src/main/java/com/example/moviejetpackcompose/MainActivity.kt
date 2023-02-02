@@ -11,6 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.moviejetpackcompose.features.detail.ui.DetailScreen
+import com.example.moviejetpackcompose.features.detail.ui.DetailViewModel
 import com.example.moviejetpackcompose.features.home.ui.HomeScreen
 import com.example.moviejetpackcompose.features.movie.ui.MovieViewModel
 import com.example.moviejetpackcompose.ui.theme.MovieJetpackComposeTheme
@@ -21,6 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val movieViewModel: MovieViewModel by viewModels()
+        val detailViewModel: DetailViewModel by viewModels()
         setContent {
             MovieJetpackComposeTheme {
                 // A surface container using the 'background' color from the theme
@@ -28,7 +36,31 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen(movieViewModel)
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "home") {
+                        composable(
+                            route = "home",
+                            content = {
+                                HomeScreen(movieViewModel, navController)
+                            }
+                        )
+                        composable(
+                            route = "detail/{id}",
+                            arguments = listOf(
+                                navArgument("id") {
+                                    type = NavType.IntType
+                                }
+                            ),
+                            content = { backStackEntry ->
+                                DetailScreen(
+                                    detailViewModel,
+                                    navController,
+                                    backStackEntry.arguments?.getInt("id") ?: 0
+                                )
+                            }
+                        )
+                    }
+
                 }
             }
         }

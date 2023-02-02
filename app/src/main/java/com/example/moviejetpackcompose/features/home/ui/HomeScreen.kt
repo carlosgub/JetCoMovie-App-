@@ -37,7 +37,10 @@ import com.example.moviejetpackcompose.ui.theme.ClearRed
 import com.example.moviejetpackcompose.ui.theme.Red
 
 @Composable
-fun HomeScreen(movieViewModel: MovieViewModel) {
+fun HomeScreen(
+    movieViewModel: MovieViewModel,
+    mainNavController: NavHostController
+) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
@@ -46,7 +49,8 @@ fun HomeScreen(movieViewModel: MovieViewModel) {
         Modifier.padding(it)
         BottomNavGraph(
             navController = navController,
-            movieViewModel = movieViewModel
+            movieViewModel = movieViewModel,
+            mainNavController = mainNavController
         )
     }
 }
@@ -218,6 +222,7 @@ fun AddItem(
 @Composable
 fun BottomNavGraph(
     navController: NavHostController,
+    mainNavController: NavHostController,
     movieViewModel: MovieViewModel
 ) {
     NavHost(
@@ -226,7 +231,10 @@ fun BottomNavGraph(
     ) {
 
         composable(route = BottomBarScreen.Movie.route) {
-            MovieScreen(movieViewModel)
+            MovieScreen(
+                movieViewModel,
+                mainNavController
+            )
         }
         composable(route = BottomBarScreen.Search.route) {
             SearchScreen()
