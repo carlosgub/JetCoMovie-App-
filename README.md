@@ -9,12 +9,20 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/30916886/215863998-a1dc026c-3b3c-45c6-a8fc-478302d85b6a.png">
 
 ## V2 (Working)
-- Add some unit test to the coroutines
-- Add the Movie Detail View
+- Add the Movie Detail View (Commited in the main branch)
+- Add logic to the booking buttom in the Movie Detail View to save in the room database to use later in the Tickets View
 
 ## V3
 - Add the Search View
 - Add the Tickets View
+
+## V4
+- Add styles and refactor that styles to the code
+- Add light/dark theme switch button to the Profile View
+
+## V5
+- Add a "Login" in the Profile View
+- Add some unit test
 
 ## Screenshots
 
