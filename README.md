@@ -26,8 +26,7 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 
 ## Screenshots
 
-https://user-images.githubusercontent.com/30916886/215861649-3c5db74d-0049-49e3-a3ff-2b2053bd45b2.mp4
-
+https://user-images.githubusercontent.com/30916886/216336907-96c18a34-edab-461e-8c4a-0c92d4db3d92.mp4
 
 # References
 
