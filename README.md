@@ -1,4 +1,4 @@
-# Jetpack Compose Movie App (Compose + Flow + Hilt + Room + MVVM + Clean)
+# Jetpack Compose Movie App (Compose + Flow + Hilt + Room + MVVM + Clean + Retrofit)
 
 <img width="1141" alt="image" src="https://user-images.githubusercontent.com/30916886/215865185-2c72f73b-7eda-43a5-955f-103d195cecc5.png">
 
@@ -8,21 +8,21 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - Request an api key from themoviedb https://developers.themoviedb.org/3/getting-started/authentication and later put that key in the build.gradle app file.
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/30916886/215863998-a1dc026c-3b3c-45c6-a8fc-478302d85b6a.png">
 
-## V2 (Working)
-- Add the Movie Detail View (Commited in the main branch)
-- Add logic to the booking buttom in the Movie Detail View save the movie in the database to later use this database for the Tickets View
+## V2 ![](https://geps.dev/progress/100)
+- [X] Add the Movie Detail View
+- [X] Add logic to the booking buttom in the Movie Detail View save the movie in the database to later use this database for the Tickets View
 
-## V3
-- Add the Search View
-- Add the Tickets View
+## V3 ![](https://geps.dev/progress/10)
+- [ ] Add the Search View
+- [ ] Add the Tickets View
 
 ## V4
-- Add styles and refactor that styles to the code
-- Add light/dark theme switch button to the Profile View
+- [ ] Add styles and refactor that styles to the code
+- [ ] Add light/dark theme switch button to the Profile View
 
 ## V5
-- Add a "Login" in the Profile View
-- Add some unit test
+- [ ] Add a "Login" in the Profile View
+- [ ] Add some unit test
 
 ## Screenshots
 
