@@ -14,22 +14,21 @@ import com.example.moviejetpackcompose.ui.theme.BlackChip
 
 @Composable
 fun CategoryChip(category: String?, modifier: Modifier = Modifier) {
-    if (category != null) {
-        Card(
-            shape = RoundedCornerShape(24.dp),
-            backgroundColor = BlackChip,
-            modifier = modifier
-        ) {
-            Text(
-                text = category,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.White,
-                modifier = Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 10.dp
-                )
+    Card(
+        shape = RoundedCornerShape(24.dp),
+        backgroundColor = BlackChip,
+        modifier = modifier
+    ) {
+        Text(
+            text = category.orEmpty(),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.White,
+            modifier = Modifier.padding(
+                horizontal = 16.dp,
+                vertical = 10.dp
             )
-        }
+        )
     }
+
 }

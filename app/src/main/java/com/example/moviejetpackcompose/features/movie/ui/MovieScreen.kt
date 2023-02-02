@@ -31,6 +31,7 @@ import androidx.compose.ui.util.lerp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.Visibility
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
@@ -304,25 +305,33 @@ fun MovieCategories(
     modifier: Modifier
 ) {
     ConstraintLayout(modifier = modifier.fillMaxSize()) {
-        val (firstCategory, secondCategory) = createRefs()
-        CategoryChip(category = categories.firstOrNull(),
-            modifier = Modifier.constrainAs(firstCategory) {
+        val (firstCategoryRef, secondCategoryRef) = createRefs()
+
+        val firstCategory = categories.firstOrNull()
+        CategoryChip(category = firstCategory,
+            modifier = Modifier.constrainAs(firstCategoryRef) {
                 linkTo(
                     start = parent.start,
                     startMargin = 16.dp,
-                    end = secondCategory.start,
+                    end = secondCategoryRef.start,
                     endMargin = 8.dp,
                     endGoneMargin = 16.dp
                 )
+                visibility =
+                    if (firstCategory != null) Visibility.Visible else Visibility.Gone
             })
-        CategoryChip(category = categories.getOrNull(1),
-            modifier = Modifier.constrainAs(secondCategory) {
+
+        val secondCategory = categories.getOrNull(1)
+        CategoryChip(category = secondCategory,
+            modifier = Modifier.constrainAs(secondCategoryRef) {
                 linkTo(
-                    start = firstCategory.end,
+                    start = firstCategoryRef.end,
                     startMargin = 8.dp,
                     end = parent.end,
                     endMargin = 16.dp
                 )
+                visibility =
+                    if (secondCategory != null) Visibility.Visible else Visibility.Gone
             })
     }
 }
