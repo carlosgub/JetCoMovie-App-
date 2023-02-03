@@ -24,9 +24,23 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - [ ] Add a "Login" in the Profile View
 - [ ] Add some unit test
 
-## Screenshots
+## Features
 
-https://user-images.githubusercontent.com/30916886/216336907-96c18a34-edab-461e-8c4a-0c92d4db3d92.mp4
+### Movie Screen
+
+https://user-images.githubusercontent.com/30916886/216682426-ef729ded-f201-4635-aaae-129d7581ebb8.mp4
+
+### Search Screen
+
+https://user-images.githubusercontent.com/30916886/216682509-69eb9ac3-8312-4707-be5a-739dde1c78fa.mp4
+
+### Ticket Screen
+
+https://user-images.githubusercontent.com/30916886/216682539-eb0ab059-642d-41c4-9a51-b6f9f0bf6cc2.mp4
+
+### Movie Detail Screen
+
+https://user-images.githubusercontent.com/30916886/216682562-b516596d-403c-4643-8b36-fb81186795e9.mp4
 
 # References
 
