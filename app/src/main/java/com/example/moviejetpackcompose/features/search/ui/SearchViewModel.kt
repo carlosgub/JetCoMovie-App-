@@ -1,6 +1,5 @@
 package com.example.moviejetpackcompose.features.search.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviejetpackcompose.core.sealed.GenericState
@@ -21,7 +20,7 @@ class SearchViewModel @Inject constructor(
     val uiState: StateFlow<GenericState<List<MovieModel>>> =
         getMoviesFromQueryUseCase(query)
             .map {
-                GenericState.Success(it)
+                it
             }
             .catch {
                 GenericState.Error(it.message.orEmpty())

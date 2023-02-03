@@ -4,9 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,12 +18,15 @@ import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 fun LazyVerticalGridMovies(
     list: List<MovieModel>,
     modifier: Modifier,
+    state: LazyGridState = rememberLazyGridState(),
+    contentPaddingValues: PaddingValues = PaddingValues(vertical = 12.dp),
     itemClicked: (it: Int) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier.padding(horizontal = 12.dp),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = contentPaddingValues,
+        state = state
     ) {
         items(list) { movieModel ->
             MovieBookedItem(movieModel) {

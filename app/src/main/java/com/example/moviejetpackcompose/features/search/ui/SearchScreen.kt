@@ -2,26 +2,25 @@
 
 package com.example.moviejetpackcompose.features.search.ui
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -50,6 +49,7 @@ fun SearchScreen(
 ) {
 
     val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val keyboardController = LocalSoftwareKeyboardController.current
     val queryValue: String by viewModel.query.asLiveData(Dispatchers.Main)
         .observeAsState(initial = "")
     val uiState by produceState<GenericState<List<MovieModel>>>(
@@ -68,65 +68,110 @@ fun SearchScreen(
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (query, loading, content) = createRefs()
-        val focusRequester = remember { FocusRequester() }
-        val keyboardController = LocalSoftwareKeyboardController.current
-        TextField(
-            value = queryValue,
-            onValueChange = {
-                viewModel.queryFieldChange(it)
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
-                    tint = TextFieldTextColor
+        val (query, content) = createRefs()
+        SearchTextField(
+            queryValue = queryValue,
+            keyboardController = keyboardController,
+            modifier = Modifier.constrainAs(query) {
+                linkTo(
+                    start = parent.start,
+                    startMargin = 24.dp,
+                    end = parent.end,
+                    endMargin = 24.dp
                 )
-            },
-            singleLine = true,
-            maxLines = 1,
-            textStyle = TextStyle(
-                fontSize = 14.sp
-            ),
-            placeholder = {
-                Text(
-                    text = "Search Movie ...",
-                    fontSize = 14.sp,
-                    color = TextFieldTextColor,
-                    modifier = Modifier.focusRequester(focusRequester)
+                top.linkTo(parent.top, 24.dp)
+                width = Dimension.fillToConstraints
+            }
+        ) {
+            viewModel.queryFieldChange(it)
+        }
+        SearchContent(
+            uiState = uiState,
+            queryValue = queryValue,
+            keyboardController = keyboardController,
+            modifier = Modifier.constrainAs(content) {
+                linkTo(
+                    start = parent.start,
+                    end = parent.end
                 )
-            },
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = TextFieldBackgroundColor,
-                textColor = TextFieldTextColor,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    keyboardController?.hide()
-                }
-            ),
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search,
-                keyboardType = KeyboardType.Text
-            ),
-            shape = MaterialTheme.shapes.small,
-            modifier = Modifier
-                .clip(RoundedCornerShape(25.dp))
-                .constrainAs(query) {
-                    linkTo(
-                        start = parent.start,
-                        startMargin = 24.dp,
-                        end = parent.end,
-                        endMargin = 24.dp
-                    )
-                    top.linkTo(parent.top, 24.dp)
-                    width = Dimension.fillToConstraints
-                    height = Dimension.value(56.dp)
-                }
-        )
-        if (showLoading(uiState) && queryValue.length > 3) {
+                linkTo(
+                    top = query.bottom,
+                    bottom = parent.bottom
+                )
+                width = Dimension.fillToConstraints
+                height = Dimension.fillToConstraints
+            }
+        ) {
+            mainNavController.navigate("detail/$it")
+        }
+    }
+}
+
+@Composable
+fun SearchTextField(
+    queryValue: String,
+    keyboardController: SoftwareKeyboardController?,
+    modifier: Modifier,
+    onValueChange: (String) -> Unit
+) {
+    val focusManager = LocalFocusManager.current
+    TextField(
+        value = queryValue,
+        onValueChange = {
+            onValueChange(it)
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search",
+                tint = TextFieldTextColor
+            )
+        },
+        singleLine = true,
+        maxLines = 1,
+        textStyle = TextStyle(
+            fontSize = 16.sp
+        ),
+        placeholder = {
+            Text(
+                text = "Search Movie ...",
+                fontSize = 16.sp,
+                color = TextFieldTextColor
+            )
+        },
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = TextFieldBackgroundColor,
+            textColor = TextFieldTextColor,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                focusManager.clearFocus()
+                keyboardController?.hide()
+            }
+        ),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search,
+            keyboardType = KeyboardType.Text
+        ),
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier
+            .clip(RoundedCornerShape(25.dp))
+    )
+}
+
+@Composable
+fun SearchContent(
+    uiState: GenericState<List<MovieModel>>,
+    queryValue: String,
+    keyboardController: SoftwareKeyboardController?,
+    modifier: Modifier,
+    onItemListClicked: (Int) -> Unit
+) {
+    ConstraintLayout(modifier = modifier) {
+        val (loading, listRef) = createRefs()
+        if ((showLoading(uiState)) && queryValue.isNotEmpty()) {
             Loading(
                 modifier = Modifier.constrainAs(loading) {
                     linkTo(
@@ -134,7 +179,7 @@ fun SearchScreen(
                         end = parent.end
                     )
                     linkTo(
-                        top = query.bottom,
+                        top = parent.top,
                         bottom = parent.bottom
                     )
                     width = Dimension.fillToConstraints
@@ -143,22 +188,29 @@ fun SearchScreen(
             )
         } else {
             val list = getDataFromUiState(uiState) ?: listOf()
+            val state = rememberLazyGridState()
+            val scroll = remember { derivedStateOf { state.firstVisibleItemScrollOffset } }
+            if (scroll.value > 0) {
+                keyboardController?.hide()
+            }
             LazyVerticalGridMovies(
                 list = list,
-                modifier = Modifier.constrainAs(content) {
+                state = state,
+                contentPaddingValues = PaddingValues(bottom = 12.dp),
+                modifier = Modifier.constrainAs(listRef) {
                     linkTo(
                         start = parent.start,
                         end = parent.end
                     )
                     linkTo(
-                        top = query.bottom,
+                        top = parent.top,
                         bottom = parent.bottom
                     )
                     width = Dimension.fillToConstraints
                     height = Dimension.fillToConstraints
                 }
             ) {
-                mainNavController.navigate("detail/$it")
+                onItemListClicked(it)
             }
         }
     }

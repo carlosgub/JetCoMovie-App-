@@ -97,10 +97,3 @@ fun Int?.minutesToTimeString(): String? {
         "${hours}h ${minutes}m"
     }
 }
-
-/*fun <T> Flow<T>.collectWithLifecycle(
-    action: suspend (T) -> Unit,
-    lifecycle: Lifecycle
-) {
-
-}*/
