@@ -1,8 +1,8 @@
 package com.example.moviejetpackcompose.core.di
 
-import com.example.moviejetpackcompose.features.detail.data.network.DetailClient
-import com.example.moviejetpackcompose.features.movie.data.network.MovieClient
-import com.example.moviejetpackcompose.features.search.data.network.SearchClient
+import com.example.moviejetpackcompose.data.network.clients.DetailClient
+import com.example.moviejetpackcompose.data.network.clients.MovieClient
+import com.example.moviejetpackcompose.data.network.clients.SearchClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

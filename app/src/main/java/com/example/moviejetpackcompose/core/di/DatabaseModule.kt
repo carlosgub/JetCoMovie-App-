@@ -3,9 +3,9 @@ package com.example.moviejetpackcompose.core.di
 import android.content.Context
 import androidx.room.Room
 import com.example.moviejetpackcompose.core.database.MovieDatabase
-import com.example.moviejetpackcompose.features.detail.data.database.MovieDetailDao
-import com.example.moviejetpackcompose.features.movie.data.database.CategoryDao
-import com.example.moviejetpackcompose.features.ticket.data.database.TicketDao
+import com.example.moviejetpackcompose.data.database.dao.MovieDetailDao
+import com.example.moviejetpackcompose.data.database.dao.CategoryDao
+import com.example.moviejetpackcompose.data.database.dao.TicketDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

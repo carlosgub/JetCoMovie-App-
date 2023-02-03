@@ -3,11 +3,11 @@ package com.example.moviejetpackcompose.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.moviejetpackcompose.features.detail.data.database.MovieDetailDao
-import com.example.moviejetpackcompose.features.detail.data.database.model.MovieEntity
-import com.example.moviejetpackcompose.features.movie.data.database.CategoryDao
-import com.example.moviejetpackcompose.features.movie.data.database.model.CategoryEntity
-import com.example.moviejetpackcompose.features.ticket.data.database.TicketDao
+import com.example.moviejetpackcompose.data.database.dao.MovieDetailDao
+import com.example.moviejetpackcompose.data.database.model.MovieEntity
+import com.example.moviejetpackcompose.data.database.dao.CategoryDao
+import com.example.moviejetpackcompose.data.database.model.CategoryEntity
+import com.example.moviejetpackcompose.data.database.dao.TicketDao
 
 @Database(entities = [CategoryEntity::class, MovieEntity::class], version = 1)
 @TypeConverters(Converters::class)
