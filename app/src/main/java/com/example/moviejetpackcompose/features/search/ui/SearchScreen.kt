@@ -2,8 +2,7 @@
 
 package com.example.moviejetpackcompose.features.search.ui
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -24,14 +23,18 @@ import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.*
+import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
@@ -170,8 +173,24 @@ fun SearchContent(
     onItemListClicked: (Int) -> Unit
 ) {
     ConstraintLayout(modifier = modifier) {
-        val (loading, listRef) = createRefs()
-        if ((showLoading(uiState)) && queryValue.isNotEmpty()) {
+        val (hint, loading, listRef, noMovies) = createRefs()
+        if (queryValue.length < 3) {
+            Text(
+                text = "Enter at least 3 characters to search something",
+                fontSize = 14.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.constrainAs(hint) {
+                    linkTo(
+                        start = parent.start,
+                        startMargin = 24.dp,
+                        end = parent.end,
+                        endMargin = 24.dp
+                    )
+                    top.linkTo(parent.top, 16.dp)
+                }
+            )
+        } else if ((showLoading(uiState)) && queryValue.isNotEmpty()) {
             Loading(
                 modifier = Modifier.constrainAs(loading) {
                     linkTo(
@@ -193,25 +212,102 @@ fun SearchContent(
             if (scroll.value > 0) {
                 keyboardController?.hide()
             }
-            LazyVerticalGridMovies(
-                list = list,
-                state = state,
-                contentPaddingValues = PaddingValues(bottom = 12.dp),
-                modifier = Modifier.constrainAs(listRef) {
+            if (list.isEmpty()) {
+                ShowNoMoviesFound(
+                    modifier = Modifier
+                        .constrainAs(noMovies) {
+                            linkTo(
+                                start = parent.start,
+                                end = parent.end
+                            )
+                            linkTo(
+                                top = parent.top,
+                                bottom = parent.bottom
+                            )
+                            width = Dimension.fillToConstraints
+                            height = Dimension.fillToConstraints
+                        }
+                )
+            } else {
+                LazyVerticalGridMovies(
+                    list = list,
+                    state = state,
+                    contentPaddingValues = PaddingValues(bottom = 12.dp),
+                    modifier = Modifier.constrainAs(listRef) {
+                        linkTo(
+                            start = parent.start,
+                            end = parent.end
+                        )
+                        linkTo(
+                            top = parent.top,
+                            bottom = parent.bottom
+                        )
+                        width = Dimension.fillToConstraints
+                        height = Dimension.fillToConstraints
+                    }
+                ) {
+                    onItemListClicked(it)
+                }
+            }
+
+        }
+    }
+}
+
+@Composable
+fun ShowNoMoviesFound(modifier: Modifier) {
+    ConstraintLayout(modifier = modifier) {
+        val (lottie, spacer, text) = createRefs()
+        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.no_found))
+        val progressLottie by animateLottieCompositionAsState(
+            composition,
+            iterations = LottieConstants.IterateForever
+        )
+        LottieAnimation(
+            composition = composition,
+            progress = { progressLottie },
+            modifier = Modifier
+                .height(200.dp)
+                .constrainAs(lottie) {
                     linkTo(
                         start = parent.start,
                         end = parent.end
                     )
                     linkTo(
                         top = parent.top,
+                        bottom = spacer.top
+                    )
+                }
+        )
+        Spacer(
+            modifier = Modifier
+                .size(24.dp)
+                .constrainAs(spacer) {
+                    linkTo(
+                        start = parent.start,
+                        end = parent.end
+                    )
+                    linkTo(
+                        top = lottie.bottom,
+                        bottom = text.top
+                    )
+                }
+        )
+        Text(
+            text = "No Movies Found",
+            color = Color.White,
+            modifier = Modifier
+                .constrainAs(text) {
+                    linkTo(
+                        start = parent.start,
+                        end = parent.end
+                    )
+                    linkTo(
+                        top = spacer.bottom,
                         bottom = parent.bottom
                     )
-                    width = Dimension.fillToConstraints
-                    height = Dimension.fillToConstraints
                 }
-            ) {
-                onItemListClicked(it)
-            }
-        }
+        )
+        createVerticalChain(lottie, spacer, text, chainStyle = ChainStyle.Packed)
     }
 }
