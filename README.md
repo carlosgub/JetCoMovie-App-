@@ -12,11 +12,11 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - [X] Add the Movie Detail View
 - [X] Add logic to the booking buttom in the Movie Detail View save the movie in the database to later use this database for the Tickets View
 
-## V3 ![](https://geps.dev/progress/90)
-- [ ] Add the Search View (Works but I will refactor some code)
+## V3 ![](https://geps.dev/progress/100)
+- [X] Add the Search View (Works but I will refactor some code)
 - [X] Add the Tickets View
 
-## V4
+## V4 ![](https://geps.dev/progress/0)
 - [ ] Add styles and refactor that styles to the code
 - [ ] Add light/dark theme switch button to the Profile View
 
