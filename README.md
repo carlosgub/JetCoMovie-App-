@@ -16,8 +16,8 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - [X] Add the Search View (Works but I will refactor some code)
 - [X] Add the Tickets View
 
-## V4 ![](https://geps.dev/progress/0)
-- [ ] Add styles and refactor that styles to the code
+## V4 ![](https://geps.dev/progress/15)
+- [ ] Add styles, create styles and do some refactor
 - [ ] Add light/dark theme switch button to the Profile View
 
 ## V5
