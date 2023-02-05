@@ -1,0 +1,13 @@
+package com.example.moviejetpackcompose.usecase
+
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
+import com.example.moviejetpackcompose.data.TicketRepository
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+
+class GetMoviesBookedUseCase @Inject constructor(
+    private val ticketRepository: TicketRepository
+) {
+    operator fun invoke(): Flow<List<MovieModel>> =
+        ticketRepository.getMoviesBooked()
+}

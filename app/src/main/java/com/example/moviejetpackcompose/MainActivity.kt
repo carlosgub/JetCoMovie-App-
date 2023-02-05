@@ -16,12 +16,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.moviejetpackcompose.features.detail.ui.DetailScreen
-import com.example.moviejetpackcompose.features.detail.ui.DetailViewModel
-import com.example.moviejetpackcompose.features.home.ui.HomeScreen
-import com.example.moviejetpackcompose.features.movie.ui.MovieViewModel
-import com.example.moviejetpackcompose.features.search.ui.SearchViewModel
-import com.example.moviejetpackcompose.features.ticket.ui.TicketViewModel
+import com.example.moviejetpackcompose.ui.features.detail.DetailScreen
+import com.example.moviejetpackcompose.ui.features.detail.DetailViewModel
+import com.example.moviejetpackcompose.ui.features.home.HomeScreen
+import com.example.moviejetpackcompose.ui.features.movie.MovieViewModel
+import com.example.moviejetpackcompose.ui.features.search.SearchViewModel
+import com.example.moviejetpackcompose.ui.features.ticket.TicketViewModel
 import com.example.moviejetpackcompose.ui.theme.MovieJetpackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.moviejetpackcompose.features.movie.ui.model.MovieModel
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
 
 @Composable
 fun LazyVerticalGridMovies(
