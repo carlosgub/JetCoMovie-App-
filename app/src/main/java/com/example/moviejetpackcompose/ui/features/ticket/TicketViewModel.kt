@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-import com.example.moviejetpackcompose.usecase.GetMoviesBookedUseCase
+import com.example.moviejetpackcompose.model.usecase.GetMoviesBookedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

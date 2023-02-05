@@ -3,10 +3,10 @@ package com.example.moviejetpackcompose.ui.features.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviejetpackcompose.core.sealed.GenericState
-import com.example.moviejetpackcompose.usecase.BookingMovieUseCase
-import com.example.moviejetpackcompose.usecase.DeleteBookingMovieUseCase
-import com.example.moviejetpackcompose.usecase.GetMovieDetailUseCase
-import com.example.moviejetpackcompose.usecase.IsMovieBookedUseCase
+import com.example.moviejetpackcompose.model.usecase.BookingMovieUseCase
+import com.example.moviejetpackcompose.model.usecase.DeleteBookingMovieUseCase
+import com.example.moviejetpackcompose.model.usecase.GetMovieDetailUseCase
+import com.example.moviejetpackcompose.model.usecase.IsMovieBookedUseCase
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

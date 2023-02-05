@@ -1,4 +1,4 @@
-package com.example.moviejetpackcompose.usecase
+package com.example.moviejetpackcompose.model.usecase
 
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.data.TicketRepository
