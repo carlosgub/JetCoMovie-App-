@@ -30,20 +30,17 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
-import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
-import com.example.moviejetpackcompose.helpers.showLoading
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.ui.theme.TextFieldBackgroundColor
 import com.example.moviejetpackcompose.ui.theme.TextFieldTextColor
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
-import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun SearchScreen(
@@ -53,8 +50,8 @@ fun SearchScreen(
 
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val keyboardController = LocalSoftwareKeyboardController.current
-    val queryValue: String by viewModel.query.asLiveData(Dispatchers.Main)
-        .observeAsState(initial = "")
+    val queryValue: String by viewModel.query.observeAsState(initial = "")
+    val showLoading: Boolean by viewModel.loading.observeAsState(initial = false)
     val uiState by produceState<GenericState<List<MovieModel>>>(
         initialValue = GenericState.Loading,
         key1 = lifecycle,
@@ -92,6 +89,7 @@ fun SearchScreen(
             uiState = uiState,
             queryValue = queryValue,
             keyboardController = keyboardController,
+            showLoading = showLoading,
             modifier = Modifier.constrainAs(content) {
                 linkTo(
                     start = parent.start,
@@ -170,6 +168,7 @@ fun SearchContent(
     uiState: GenericState<List<MovieModel>>,
     queryValue: String,
     keyboardController: SoftwareKeyboardController?,
+    showLoading: Boolean,
     modifier: Modifier,
     onItemListClicked: (Int) -> Unit
 ) {
@@ -191,7 +190,7 @@ fun SearchContent(
                     top.linkTo(parent.top, 16.dp)
                 }
             )
-        } else if ((showLoading(uiState)) && queryValue.isNotEmpty()) {
+        } else if (showLoading && queryValue.isNotEmpty()) {
             Loading(
                 modifier = Modifier.constrainAs(loading) {
                     linkTo(
