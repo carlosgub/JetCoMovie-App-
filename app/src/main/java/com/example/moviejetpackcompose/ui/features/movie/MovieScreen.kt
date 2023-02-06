@@ -18,10 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -31,12 +28,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.example.moviejetpackcompose.core.sealed.GenericState
-import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
+import com.example.moviejetpackcompose.ui.theme.*
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
 import com.example.moviejetpackcompose.ui.views.MoviePoster
+import com.example.moviejetpackcompose.ui.views.MovieTitle
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
 
@@ -83,14 +82,14 @@ fun MovieScreen(
         } else {
             HorizontalPager(count = list.size,
                 state = pagerState,
-                contentPadding = PaddingValues(horizontal = 50.dp),
+                contentPadding = PaddingValues(horizontal = spacing_10),
                 modifier = Modifier
                     .constrainAs(pager) {
                         linkTo(
                             start = parent.start,
                             end = parent.end
                         )
-                        top.linkTo(parent.top, 24.dp)
+                        top.linkTo(parent.top, spacing_6)
                     }
             ) { page ->
                 val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
@@ -117,7 +116,7 @@ fun MovieItem(
         val (movieCard, textMovieContainer) = createRefs()
         MoviePoster(
             imagePath = movieModel.getImagePath(),
-            size = 450.dp,
+            size = view_0,
             modifier = Modifier
                 .fillMaxHeight(0.66f)
                 .clickable {
@@ -151,7 +150,7 @@ fun MovieItem(
                     )
                     linkTo(
                         top = movieCard.bottom,
-                        topMargin = 18.dp,
+                        topMargin = spacing_4_2,
                         bottom = parent.bottom,
                     )
                     width = Dimension.fillToConstraints
@@ -184,8 +183,8 @@ fun MovieItem(
                                 start = parent.start,
                                 end = parent.end
                             )
-                            top.linkTo(movieText.bottom, 24.dp)
-                            bottom.linkTo(parent.bottom, 12.dp)
+                            top.linkTo(movieText.bottom, spacing_6)
+                            bottom.linkTo(parent.bottom, spacing_3)
                             width = Dimension.fillToConstraints
                             height = Dimension.fillToConstraints
                         }
@@ -208,7 +207,7 @@ fun MovieText(
             contentDescription = "time",
             tint = Color.White,
             modifier = Modifier
-                .size(24.dp)
+                .size(view_6)
                 .constrainAs(movieTimeIcon) {
                     top.linkTo(parent.top)
                     linkTo(
@@ -219,7 +218,7 @@ fun MovieText(
         )
         Spacer(
             modifier = Modifier
-                .size(8.dp)
+                .size(view_2)
                 .constrainAs(movieTimeSpacer) {
                     linkTo(
                         top = movieTimeIcon.top,
@@ -250,18 +249,15 @@ fun MovieText(
             movieTimeIcon,
             movieTimeSpacer,
             movieTimeText,
-            chainStyle = ChainStyle.Packed(0.4f)
+            chainStyle = ChainStyle.Packed
         )
 
-        Text(
-            text = movieModel.originalTitle,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
+        MovieTitle(
+            title = movieModel.originalTitle,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .constrainAs(movieTitle) {
-                    top.linkTo(movieTimeIcon.bottom, 16.dp)
+                    top.linkTo(movieTimeIcon.bottom, spacing_4)
 
                     linkTo(
                         start = parent.start,
@@ -269,7 +265,6 @@ fun MovieText(
                     )
                 }
         )
-
     }
 }
 
@@ -286,10 +281,10 @@ fun MovieCategories(
             modifier = Modifier.constrainAs(firstCategoryRef) {
                 linkTo(
                     start = parent.start,
-                    startMargin = 16.dp,
+                    startMargin = spacing_4,
                     end = secondCategoryRef.start,
-                    endMargin = 8.dp,
-                    endGoneMargin = 16.dp
+                    endMargin = spacing_2,
+                    endGoneMargin = spacing_4
                 )
                 visibility =
                     if (firstCategory != null) Visibility.Visible else Visibility.Gone
@@ -300,9 +295,9 @@ fun MovieCategories(
             modifier = Modifier.constrainAs(secondCategoryRef) {
                 linkTo(
                     start = firstCategoryRef.end,
-                    startMargin = 8.dp,
+                    startMargin = spacing_2,
                     end = parent.end,
-                    endMargin = 16.dp
+                    endMargin = spacing_4
                 )
                 visibility =
                     if (secondCategory != null) Visibility.Visible else Visibility.Gone

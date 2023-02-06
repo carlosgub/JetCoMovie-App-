@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -36,8 +35,7 @@ import com.example.moviejetpackcompose.ui.features.search.SearchScreen
 import com.example.moviejetpackcompose.ui.features.search.SearchViewModel
 import com.example.moviejetpackcompose.ui.features.ticket.TicketScreen
 import com.example.moviejetpackcompose.ui.features.ticket.TicketViewModel
-import com.example.moviejetpackcompose.ui.theme.ClearRed
-import com.example.moviejetpackcompose.ui.theme.Red
+import com.example.moviejetpackcompose.ui.theme.*
 
 @Composable
 fun HomeScreen(
@@ -86,7 +84,7 @@ fun BottomBar(navController: NavHostController) {
                     )
                     top.linkTo(parent.top)
                 },
-            thickness = 0.25.dp,
+            thickness = divider_thickness,
             color = Color.Gray
         )
 
@@ -96,13 +94,13 @@ fun BottomBar(navController: NavHostController) {
             navController = navController,
             modifier = Modifier
                 .constrainAs(movie) {
-                    start.linkTo(parent.start)
+                    start.linkTo(parent.start, spacing_2_2)
                     end.linkTo(search.start)
                     linkTo(
                         top = parent.top,
-                        topMargin = 18.dp,
-                        bottomMargin = 8.dp,
-                        bottom = parent.bottom,
+                        topMargin = spacing_4_2,
+                        bottomMargin = spacing_2,
+                        bottom = parent.bottom
                     )
                 }
         )
@@ -111,12 +109,12 @@ fun BottomBar(navController: NavHostController) {
             currentDestination = currentDestination,
             navController = navController,
             modifier = Modifier.constrainAs(search) {
-                start.linkTo(movie.end, 10.dp)
+                start.linkTo(movie.end, spacing_2_2)
                 end.linkTo(ticket.start)
                 linkTo(
                     top = parent.top,
-                    topMargin = 18.dp,
-                    bottomMargin = 8.dp,
+                    topMargin = spacing_4_2,
+                    bottomMargin = spacing_2,
                     bottom = parent.bottom
                 )
             }
@@ -126,12 +124,12 @@ fun BottomBar(navController: NavHostController) {
             currentDestination = currentDestination,
             navController = navController,
             modifier = Modifier.constrainAs(ticket) {
-                start.linkTo(search.end)
+                start.linkTo(search.end, spacing_2_2)
                 end.linkTo(profile.start)
                 linkTo(
                     top = parent.top,
-                    topMargin = 18.dp,
-                    bottomMargin = 8.dp,
+                    topMargin = spacing_4_2,
+                    bottomMargin = spacing_2,
                     bottom = parent.bottom
                 )
             }
@@ -142,11 +140,11 @@ fun BottomBar(navController: NavHostController) {
             navController = navController,
             modifier = Modifier.constrainAs(profile) {
                 start.linkTo(ticket.end)
-                end.linkTo(parent.end, 10.dp)
+                end.linkTo(parent.end, spacing_2_2)
                 linkTo(
                     top = parent.top,
-                    topMargin = 18.dp,
-                    bottomMargin = 8.dp,
+                    topMargin = spacing_4_2,
+                    bottomMargin = spacing_2,
                     bottom = parent.bottom
                 )
             }
@@ -183,10 +181,15 @@ fun AddItem(
 
     ConstraintLayout(
         modifier = modifier
-            .height(40.dp)
+            .height(view_10)
             .clip(CircleShape)
             .background(background)
-            .padding(start = 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp)
+            .padding(
+                start = spacing_2_2,
+                end = spacing_2_2,
+                top = spacing_2,
+                bottom = spacing_2
+            )
             .clickable(onClick = {
                 navController.navigate(screen.route) {
                     popUpTo(navController.graph.findStartDestination().id)
@@ -211,7 +214,7 @@ fun AddItem(
             modifier = Modifier.constrainAs(text) {
                 linkTo(
                     start = icon.end,
-                    startMargin = 8.dp,
+                    startMargin = spacing_2,
                     end = parent.end
                 )
                 linkTo(

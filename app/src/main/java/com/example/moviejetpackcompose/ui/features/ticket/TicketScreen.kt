@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -24,12 +23,11 @@ import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.*
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
-import com.example.moviejetpackcompose.ui.features.model.BottomBarScreen
-import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
-import com.example.moviejetpackcompose.ui.theme.Gold
-import com.example.moviejetpackcompose.ui.theme.GoldDarker
+import com.example.moviejetpackcompose.ui.features.model.BottomBarScreen
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
+import com.example.moviejetpackcompose.ui.theme.*
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
 
@@ -158,7 +156,7 @@ fun ShowNoTickets(modifier: Modifier, onClick: () -> Unit) {
             composition = composition,
             progress = { progressLottie },
             modifier = Modifier
-                .height(200.dp)
+                .height(view_50)
                 .constrainAs(lottie) {
                     linkTo(
                         start = parent.start,
@@ -172,7 +170,7 @@ fun ShowNoTickets(modifier: Modifier, onClick: () -> Unit) {
         )
         Spacer(
             modifier = Modifier
-                .size(24.dp)
+                .size(view_6)
                 .constrainAs(spacer) {
                     linkTo(
                         start = parent.start,
@@ -216,8 +214,8 @@ fun ShowNoTickets(modifier: Modifier, onClick: () -> Unit) {
                         shape = CircleShape
                     )
                     .padding(
-                        horizontal = 28.dp,
-                        vertical = 16.dp
+                        horizontal = spacing_7,
+                        vertical = spacing_4
                     )
             )
         }

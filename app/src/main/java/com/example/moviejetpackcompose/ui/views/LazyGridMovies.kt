@@ -10,21 +10,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
+import com.example.moviejetpackcompose.ui.theme.spacing_2
+import com.example.moviejetpackcompose.ui.theme.spacing_3
+import com.example.moviejetpackcompose.ui.theme.view_60
 
 @Composable
 fun LazyVerticalGridMovies(
     list: List<MovieModel>,
     modifier: Modifier,
     state: LazyGridState = rememberLazyGridState(),
-    contentPaddingValues: PaddingValues = PaddingValues(vertical = 12.dp),
+    contentPaddingValues: PaddingValues = PaddingValues(vertical = spacing_3),
     itemClicked: (it: Int) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = modifier.padding(horizontal = 12.dp),
+        modifier = modifier.padding(horizontal = spacing_3),
         contentPadding = contentPaddingValues,
         state = state
     ) {
@@ -44,12 +46,12 @@ fun MovieBookedItem(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = 12.dp)
+            .padding(all = spacing_3)
     ) {
         val (movieCard, text) = createRefs()
         MoviePoster(
             imagePath = movieModel.getImagePath(),
-            size = 240.dp,
+            size = view_60,
             modifier = Modifier
                 .clickable {
                     goToMovieDetail(movieModel.id)
@@ -76,9 +78,9 @@ fun MovieBookedItem(
                     )
                     linkTo(
                         top = movieCard.bottom,
-                        topMargin = 8.dp,
+                        topMargin = spacing_2,
                         bottom = parent.bottom,
-                        bottomMargin = 8.dp
+                        bottomMargin = spacing_2
                     )
                 })
     }

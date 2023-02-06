@@ -1,10 +1,9 @@
-@file:OptIn(ExperimentalComposeUiApi::class)
+@file:OptIn(ExperimentalComposeUiApi::class, ExperimentalComposeUiApi::class)
 
 package com.example.moviejetpackcompose.ui.features.search
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -20,12 +19,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -37,8 +33,7 @@ import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-import com.example.moviejetpackcompose.ui.theme.TextFieldBackgroundColor
-import com.example.moviejetpackcompose.ui.theme.TextFieldTextColor
+import com.example.moviejetpackcompose.ui.theme.*
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
 
@@ -75,11 +70,11 @@ fun SearchScreen(
             modifier = Modifier.constrainAs(query) {
                 linkTo(
                     start = parent.start,
-                    startMargin = 24.dp,
+                    startMargin = spacing_6,
                     end = parent.end,
-                    endMargin = 24.dp
+                    endMargin = spacing_6
                 )
-                top.linkTo(parent.top, 24.dp)
+                top.linkTo(parent.top, spacing_6)
                 width = Dimension.fillToConstraints
             }
         ) {
@@ -97,7 +92,7 @@ fun SearchScreen(
                 )
                 linkTo(
                     top = query.bottom,
-                    topMargin = 12.dp,
+                    topMargin = spacing_3,
                     bottom = parent.bottom
                 )
                 width = Dimension.fillToConstraints
@@ -131,14 +126,11 @@ fun SearchTextField(
         },
         singleLine = true,
         maxLines = 1,
-        textStyle = TextStyle(
-            fontSize = 16.sp
-        ),
+        textStyle = TextFieldStyle,
         placeholder = {
             Text(
                 text = "Search Movie ...",
-                fontSize = 16.sp,
-                color = TextFieldTextColor
+                style = TextFieldStyle
             )
         },
         colors = TextFieldDefaults.textFieldColors(
@@ -159,7 +151,7 @@ fun SearchTextField(
         ),
         shape = MaterialTheme.shapes.small,
         modifier = modifier
-            .clip(RoundedCornerShape(25.dp))
+            .clip(RoundedShape)
     )
 }
 
@@ -177,17 +169,16 @@ fun SearchContent(
         if (queryValue.length < 3) {
             Text(
                 text = "Enter at least 3 characters to search something",
-                fontSize = 14.sp,
-                color = Color.White,
+                style = Typography.body2,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.constrainAs(hint) {
                     linkTo(
                         start = parent.start,
-                        startMargin = 24.dp,
+                        startMargin = spacing_6,
                         end = parent.end,
-                        endMargin = 24.dp
+                        endMargin = spacing_6
                     )
-                    top.linkTo(parent.top, 16.dp)
+                    top.linkTo(parent.top, spacing_4)
                 }
             )
         } else if (showLoading && queryValue.isNotEmpty()) {
@@ -232,7 +223,7 @@ fun SearchContent(
                 LazyVerticalGridMovies(
                     list = list,
                     state = state,
-                    contentPaddingValues = PaddingValues(bottom = 12.dp),
+                    contentPaddingValues = PaddingValues(bottom = spacing_3),
                     modifier = Modifier.constrainAs(listRef) {
                         linkTo(
                             start = parent.start,
@@ -267,7 +258,7 @@ fun ShowNoMoviesFound(modifier: Modifier) {
             composition = composition,
             progress = { progressLottie },
             modifier = Modifier
-                .height(200.dp)
+                .height(view_50)
                 .constrainAs(lottie) {
                     linkTo(
                         start = parent.start,
@@ -281,7 +272,7 @@ fun ShowNoMoviesFound(modifier: Modifier) {
         )
         Spacer(
             modifier = Modifier
-                .size(24.dp)
+                .size(view_6)
                 .constrainAs(spacer) {
                     linkTo(
                         start = parent.start,

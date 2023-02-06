@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalAnimationApi::class)
+@file:OptIn(
+    ExperimentalAnimationApi::class, ExperimentalAnimationApi::class,
+    ExperimentalAnimationApi::class, ExperimentalAnimationApi::class
+)
 
 package com.example.moviejetpackcompose.ui.features.detail
 
@@ -12,7 +15,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Close
@@ -29,11 +35,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
@@ -43,17 +46,14 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
-import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
-import com.example.moviejetpackcompose.ui.features.detail.DetailViewModel
-import com.example.moviejetpackcompose.ui.theme.ClearRed
-import com.example.moviejetpackcompose.ui.theme.Gold
-import com.example.moviejetpackcompose.ui.theme.GoldDarker
-import com.example.moviejetpackcompose.ui.theme.Red
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
+import com.example.moviejetpackcompose.ui.theme.*
 import com.example.moviejetpackcompose.ui.views.BlackVerticalGradient
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
+import com.example.moviejetpackcompose.ui.views.MovieTitle
 import java.math.RoundingMode
 
 @Composable
@@ -177,16 +177,16 @@ fun MovieDetailContent(
         CloseMovie(
             navController = navController,
             modifier = Modifier.constrainAs(close) {
-                top.linkTo(parent.top, 24.dp)
-                start.linkTo(parent.start, 24.dp)
+                top.linkTo(parent.top, spacing_6)
+                start.linkTo(parent.start, spacing_6)
             }
         )
         movie.runtime?.let {
             MovieDuration(
                 duration = it,
                 modifier = Modifier.constrainAs(time) {
-                    end.linkTo(parent.end, 24.dp)
-                    top.linkTo(parent.top, 24.dp)
+                    end.linkTo(parent.end, spacing_6)
+                    top.linkTo(parent.top, spacing_6)
                 }
             )
         }
@@ -196,7 +196,7 @@ fun MovieDetailContent(
                 .constrainAs(textContent) {
                     linkTo(
                         top = poster.bottom,
-                        topMargin = (-150).dp,
+                        topMargin = -spacing_37_2,
                         bottom = parent.bottom,
                         bias = 0f
                     )
@@ -224,7 +224,7 @@ fun CloseMovie(navController: NavController, modifier: Modifier) {
                     alpha = 0.6f
                 )
             )
-            .padding(8.dp)
+            .padding(spacing_2)
             .clickable {
                 navController.popBackStack()
             }
@@ -242,8 +242,8 @@ fun MovieDuration(duration: String, modifier: Modifier) {
                 )
             )
             .padding(
-                vertical = 6.dp,
-                horizontal = 12.dp
+                vertical = spacing_1_2,
+                horizontal = spacing_3
             )
     ) {
         val (icon, text) = createRefs()
@@ -263,7 +263,7 @@ fun MovieDuration(duration: String, modifier: Modifier) {
             text = duration,
             color = Color.White,
             modifier = Modifier.constrainAs(text) {
-                start.linkTo(icon.end, 4.dp)
+                start.linkTo(icon.end, spacing_1)
                 end.linkTo(parent.end)
                 linkTo(
                     top = icon.top,
@@ -297,7 +297,7 @@ fun MoviePosterDetail(path: String, modifier: Modifier) {
                 }
         )
         BlackVerticalGradient(
-            size = 300.dp,
+            size = view_75,
             modifier = Modifier.constrainAs(gradient) {
                 bottom.linkTo(parent.bottom)
                 linkTo(
@@ -320,8 +320,8 @@ fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
         IMDBRanking(
             modifier = Modifier
                 .constrainAs(IMDB) {
-                    start.linkTo(parent.start, 24.dp)
-                    top.linkTo(parent.top, 16.dp)
+                    start.linkTo(parent.start, spacing_6)
+                    top.linkTo(parent.top, spacing_4)
                 }
         )
         VoteMovie(
@@ -329,24 +329,24 @@ fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
             voteCount = movie.voteCount,
             modifier = Modifier
                 .constrainAs(ranking) {
-                    start.linkTo(IMDB.end, 8.dp)
-                    end.linkTo(parent.end, 24.dp)
+                    start.linkTo(IMDB.end, spacing_2)
+                    end.linkTo(parent.end, spacing_6)
                     top.linkTo(IMDB.top)
                     bottom.linkTo(IMDB.bottom)
                     width = Dimension.fillToConstraints
                 }
         )
-        MovieDetailTitle(
+        MovieTitle(
             title = movie.originalTitle,
             modifier = Modifier
                 .constrainAs(title) {
                     linkTo(
                         start = parent.start,
-                        startMargin = 24.dp,
+                        startMargin = spacing_6,
                         end = parent.end,
-                        endMargin = 24.dp
+                        endMargin = spacing_6
                     )
-                    top.linkTo(IMDB.bottom, 8.dp)
+                    top.linkTo(IMDB.bottom, spacing_2)
                     width = Dimension.fillToConstraints
                 }
         )
@@ -358,25 +358,24 @@ fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
                         start = parent.start,
                         end = parent.end,
                     )
-                    top.linkTo(title.bottom, 12.dp)
+                    top.linkTo(title.bottom, spacing_3)
                     width = Dimension.fillToConstraints
                 }
         )
         Text(
             text = "${movie.overview.orEmpty()} ${movie.overview.orEmpty()}",
             textAlign = TextAlign.Justify,
-            color = Color.White,
-            fontSize = 14.sp,
+            style = Typography.body2,
             modifier = Modifier
                 .constrainAs(overview) {
                     linkTo(
                         start = parent.start,
-                        startMargin = 24.dp,
+                        startMargin = spacing_6,
                         end = parent.end,
-                        endMargin = 24.dp
+                        endMargin = spacing_6
                     )
-                    top.linkTo(categories.bottom, 24.dp)
-                    bottom.linkTo(parent.bottom, 100.dp)
+                    top.linkTo(categories.bottom, spacing_6)
+                    bottom.linkTo(parent.bottom, spacing_25)
                     width = Dimension.fillToConstraints
                     height = Dimension.wrapContent
                 }
@@ -388,9 +387,8 @@ fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
 fun IMDBRanking(modifier: Modifier) {
     Text(
         text = "IMDB 7.0",
+        style = Typography.body2,
         color = Color.Black,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
         modifier = modifier
             .background(
                 Brush.horizontalGradient(
@@ -403,8 +401,8 @@ fun IMDBRanking(modifier: Modifier) {
                 shape = CircleShape
             )
             .padding(
-                horizontal = 12.dp,
-                vertical = 4.dp
+                horizontal = spacing_3,
+                vertical = spacing_1
             )
     )
 }
@@ -422,9 +420,9 @@ fun VoteMovie(
             contentDescription = "Star ranking",
             tint = Gold,
             modifier = Modifier
-                .size(24.dp)
+                .size(view_6)
                 .constrainAs(icon) {
-                    start.linkTo(parent.start, 4.dp)
+                    start.linkTo(parent.start, spacing_1)
                     linkTo(
                         top = parent.top,
                         bottom = parent.bottom
@@ -433,12 +431,11 @@ fun VoteMovie(
         )
         Text(
             text = voteAverage.toBigDecimal().setScale(1, RoundingMode.CEILING).toString(),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
+            style = Typography.h6,
             color = Gold,
             modifier = Modifier
                 .constrainAs(voteAverageRef) {
-                    start.linkTo(icon.end, 4.dp)
+                    start.linkTo(icon.end, spacing_1)
                     linkTo(
                         top = icon.top,
                         bottom = icon.bottom
@@ -447,18 +444,16 @@ fun VoteMovie(
         )
         Text(
             text = "(${voteCount} reviews)",
-            color = Color.White,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
+            style = Typography.caption,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .constrainAs(voteCountRef) {
                     linkTo(
                         start = voteAverageRef.end,
-                        startMargin = 8.dp,
+                        startMargin = spacing_2,
                         end = parent.end,
-                        endMargin = 24.dp
+                        endMargin = spacing_6
                     )
                     linkTo(
                         top = icon.top,
@@ -471,22 +466,11 @@ fun VoteMovie(
 }
 
 @Composable
-fun MovieDetailTitle(title: String, modifier: Modifier) {
-    Text(
-        text = title,
-        color = Color.White,
-        fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
-        modifier = modifier
-    )
-}
-
-@Composable
 fun CategoriesChipsDetail(list: List<String>, modifier: Modifier) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(spacing_2_2),
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 24.dp)
+        contentPadding = PaddingValues(horizontal = spacing_6)
     ) {
         items(list) { category ->
             CategoryChip(
@@ -507,7 +491,7 @@ fun Booking(
     ) {
         val (button, gradient) = createRefs()
         BlackVerticalGradient(
-            size = 100.dp,
+            size = view_25,
             modifier = Modifier
                 .constrainAs(gradient) {
                     bottom.linkTo(parent.bottom)
@@ -561,11 +545,11 @@ fun Booking(
                         .constrainAs(icon) {
                             linkTo(
                                 top = parent.top,
-                                topMargin = 8.dp,
+                                topMargin = spacing_2,
                                 bottom = parent.bottom,
-                                bottomMargin = 8.dp
+                                bottomMargin = spacing_2
                             )
-                            start.linkTo(parent.start, 20.dp)
+                            start.linkTo(parent.start, spacing_6)
                         }
                 )
                 AnimatedContent(
@@ -574,21 +558,21 @@ fun Booking(
                         .constrainAs(text) {
                             linkTo(
                                 top = parent.top,
-                                topMargin = 8.dp,
+                                topMargin = spacing_2,
                                 bottom = parent.bottom,
-                                bottomMargin = 8.dp
+                                bottomMargin = spacing_2
                             )
                             linkTo(
                                 start = icon.end,
-                                startMargin = 8.dp,
+                                startMargin = spacing_2,
                                 end = parent.end,
-                                endMargin = 20.dp
+                                endMargin = spacing_6
                             )
                         }
                 ) { targetState ->
                     Text(
                         text = if (targetState) "Remove Booking" else "Booking",
-                        fontSize = 20.sp
+                        style = Typography.button
                     )
                 }
 
