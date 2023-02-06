@@ -21,11 +21,13 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - [X] Add light/dark theme (change the theme in your device settings)
 
 ## V5 ![](https://geps.dev/progress/0)
+- [ ] Add KLint to the project
 - [ ] Add support to different Screens.
 - [ ] Add Unit test.
 
 ## V6
 - [ ] Add a "Login" in the Profile View.
+- [ ] Add pagination to the Search Screen.
 
 ## Features
 
