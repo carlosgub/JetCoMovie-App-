@@ -9,20 +9,23 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 <img width="474" alt="image" src="https://user-images.githubusercontent.com/30916886/215863998-a1dc026c-3b3c-45c6-a8fc-478302d85b6a.png">
 
 ## V2 ![](https://geps.dev/progress/100)
-- [X] Add the Movie Detail View
-- [X] Add logic to the booking buttom in the Movie Detail View save the movie in the database to later use this database for the Tickets View
+- [X] Add the Movie Detail View.
+- [X] Add logic to the booking buttom in the Movie Detail View save the movie in the database to later use this database for the Tickets View.
 
 ## V3 ![](https://geps.dev/progress/100)
-- [X] Add the Search View (Works but I will refactor some code)
-- [X] Add the Tickets View
+- [X] Add the Search View.
+- [X] Add the Tickets View.
 
 ## V4 ![](https://geps.dev/progress/15)
 - [ ] Add styles, create styles and do some refactor
 - [ ] Add light/dark theme switch button to the Profile View
 
 ## V5
-- [ ] Add a "Login" in the Profile View
-- [ ] Add some unit test
+- [ ] Add support to different Screens.
+- [ ] Add Unit test.
+
+## V6
+- [ ] Add a "Login" in the Profile View.
 
 ## Features
 
