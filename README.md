@@ -18,7 +18,7 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 
 ## V4 ![](https://geps.dev/progress/50)
 - [X] Create text styles and dimens for the views and do some refactor.
-- [ ] Add light/dark theme switch button to the Profile View.
+- [X] Add light/dark theme, for this change the theme in your device settings
 
 ## V5
 - [ ] Add support to different Screens.
@@ -56,6 +56,10 @@ https://user-images.githubusercontent.com/30916886/216682562-b516596d-403c-4643-
 - Background Gradient https://semicolonspace.com/android-jetpack-compose-gradient/
 
 - Library where I got the horizontal viewpager https://github.com/google/accompanist
+
+- CompositionLocal for the light/dark teme https://developer.android.com/jetpack/compose/compositionlocal
+
+- Add more colors to the material theme https://gustav-karlsson.medium.com/extending-the-jetpack-compose-material-theme-with-more-colors-e1b849390d50
 
 ## Contributors ✨
 
