@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.moviejetpackcompose.ui.theme.myColors
 
 @Composable
 fun ProfileScreen() {
@@ -15,7 +15,7 @@ fun ProfileScreen() {
         val (text) = createRefs()
         Text(
             text = "Profile",
-            color = Color.White,
+            color = myColors.surface,
             modifier = Modifier
                 .constrainAs(text) {
                     linkTo(

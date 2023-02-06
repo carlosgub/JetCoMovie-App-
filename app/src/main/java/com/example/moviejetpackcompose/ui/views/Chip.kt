@@ -17,6 +17,7 @@ fun CategoryChip(category: String?, modifier: Modifier = Modifier) {
         Text(
             text = category.orEmpty(),
             style = Typography.body2,
+            color = myColors.chip,
             modifier = Modifier.padding(
                 horizontal = spacing_4,
                 vertical = spacing_2_2

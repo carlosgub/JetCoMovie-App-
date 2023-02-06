@@ -1,7 +1,6 @@
 package com.example.moviejetpackcompose.ui.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -10,7 +9,6 @@ import androidx.compose.ui.unit.sp
 // Set of Material typography styles to start with
 val Typography = Typography(
     h4 = TextStyle(
-        color = Color.White,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 32.sp,
@@ -21,7 +19,6 @@ val Typography = Typography(
         letterSpacing = 0.15.sp
     ),
     body1 = TextStyle(
-        color = Color.White,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
@@ -29,7 +26,6 @@ val Typography = Typography(
     body2 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
-        color = Color.White,
         fontSize = 14.sp
     ),
     button = TextStyle(
@@ -38,7 +34,6 @@ val Typography = Typography(
         letterSpacing = 1.25.sp
     ),
     caption = TextStyle(
-        color = Color.White,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
         fontSize = 12.sp,

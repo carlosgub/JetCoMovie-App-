@@ -8,10 +8,10 @@ import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
+import com.example.moviejetpackcompose.ui.theme.myColors
 import com.example.moviejetpackcompose.ui.theme.spacing_2
 import com.example.moviejetpackcompose.ui.theme.spacing_3
 import com.example.moviejetpackcompose.ui.theme.view_60
@@ -66,7 +66,7 @@ fun MovieBookedItem(
         )
         Text(text = movieModel.originalTitle,
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = myColors.surface,
             modifier = Modifier
                 .clickable {
                     goToMovieDetail(movieModel.id)

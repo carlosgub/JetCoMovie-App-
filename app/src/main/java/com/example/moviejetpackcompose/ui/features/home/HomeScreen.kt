@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -47,7 +44,7 @@ fun HomeScreen(
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
-        backgroundColor = Color.Black
+        backgroundColor = myColors.background
     ) { paddingValues ->
         BottomNavGraph(
             navController = navController,
@@ -85,7 +82,7 @@ fun BottomBar(navController: NavHostController) {
                     top.linkTo(parent.top)
                 },
             thickness = divider_thickness,
-            color = Color.Gray
+            color = DividerColor
         )
 
         AddItem(

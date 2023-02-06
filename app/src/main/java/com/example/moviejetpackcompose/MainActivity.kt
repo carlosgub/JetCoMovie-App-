@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +22,7 @@ import com.example.moviejetpackcompose.ui.features.movie.MovieViewModel
 import com.example.moviejetpackcompose.ui.features.search.SearchViewModel
 import com.example.moviejetpackcompose.ui.features.ticket.TicketViewModel
 import com.example.moviejetpackcompose.ui.theme.MovieJetpackComposeTheme
+import com.example.moviejetpackcompose.ui.theme.myColors
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
             MovieJetpackComposeTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = myColors.background
                 ) {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "home") {

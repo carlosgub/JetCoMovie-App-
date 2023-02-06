@@ -10,3 +10,4 @@ val Gold = Color(0XFFF9C204)
 val GoldDarker = Color(0XFFC59902)
 val TextFieldBackgroundColor = Color(0xFF34353E)
 val TextFieldTextColor = Color(0xFF818284)
+val DividerColor = Color.Gray

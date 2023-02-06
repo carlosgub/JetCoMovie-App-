@@ -14,7 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -205,7 +204,7 @@ fun MovieText(
         Icon(
             imageVector = Icons.Outlined.CalendarMonth,
             contentDescription = "time",
-            tint = Color.White,
+            tint = myColors.iconTint,
             modifier = Modifier
                 .size(view_6)
                 .constrainAs(movieTimeIcon) {
@@ -232,7 +231,7 @@ fun MovieText(
         )
         Text(
             text = movieModel.releaseDate.orEmpty(),
-            color = Color.White,
+            color = myColors.surface,
             modifier = Modifier
                 .constrainAs(movieTimeText) {
                     linkTo(

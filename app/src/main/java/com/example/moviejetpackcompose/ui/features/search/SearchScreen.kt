@@ -170,6 +170,7 @@ fun SearchContent(
             Text(
                 text = "Enter at least 3 characters to search something",
                 style = Typography.body2,
+                color = myColors.surface,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.constrainAs(hint) {
                     linkTo(

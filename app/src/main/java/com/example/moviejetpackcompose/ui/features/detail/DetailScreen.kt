@@ -15,10 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Close
@@ -37,6 +34,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
@@ -95,7 +93,7 @@ fun DetailScreen(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(myColors.background)
     ) {
         val (loading, content, booking) = createRefs()
         if (showLoading(uiState)) {
@@ -216,11 +214,11 @@ fun CloseMovie(navController: NavController, modifier: Modifier) {
     Icon(
         imageVector = Icons.Filled.Close,
         contentDescription = "Close screen",
-        tint = Color.White,
+        tint = myColors.iconTint,
         modifier = modifier
             .clip(CircleShape)
             .background(
-                Color.Gray.copy(
+                myColors.background.copy(
                     alpha = 0.6f
                 )
             )
@@ -237,7 +235,7 @@ fun MovieDuration(duration: String, modifier: Modifier) {
         modifier = modifier
             .clip(CircleShape)
             .background(
-                Color.Gray.copy(
+                myColors.background.copy(
                     alpha = 0.6f
                 )
             )
@@ -250,7 +248,7 @@ fun MovieDuration(duration: String, modifier: Modifier) {
         Icon(
             imageVector = Icons.Filled.AccessTime,
             contentDescription = "Movie Time",
-            tint = Color.White,
+            tint = myColors.iconTint,
             modifier = Modifier.constrainAs(icon) {
                 start.linkTo(parent.start)
                 linkTo(
@@ -261,7 +259,7 @@ fun MovieDuration(duration: String, modifier: Modifier) {
         )
         Text(
             text = duration,
-            color = Color.White,
+            color = myColors.surface,
             modifier = Modifier.constrainAs(text) {
                 start.linkTo(icon.end, spacing_1)
                 end.linkTo(parent.end)
@@ -298,6 +296,7 @@ fun MoviePosterDetail(path: String, modifier: Modifier) {
         )
         BlackVerticalGradient(
             size = view_75,
+            startColor = myColors.background,
             modifier = Modifier.constrainAs(gradient) {
                 bottom.linkTo(parent.bottom)
                 linkTo(
@@ -366,6 +365,7 @@ fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
             text = "${movie.overview.orEmpty()} ${movie.overview.orEmpty()}",
             textAlign = TextAlign.Justify,
             style = Typography.body2,
+            color = myColors.surface,
             modifier = Modifier
                 .constrainAs(overview) {
                     linkTo(
@@ -445,6 +445,7 @@ fun VoteMovie(
         Text(
             text = "(${voteCount} reviews)",
             style = Typography.caption,
+            color = myColors.surface,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
@@ -492,6 +493,7 @@ fun Booking(
         val (button, gradient) = createRefs()
         BlackVerticalGradient(
             size = view_25,
+            startColor = myColors.background,
             modifier = Modifier
                 .constrainAs(gradient) {
                     bottom.linkTo(parent.bottom)
@@ -504,6 +506,7 @@ fun Booking(
         )
 
         Button(
+            elevation = buttonNoElevation,
             onClick = {
                 onClick()
             },

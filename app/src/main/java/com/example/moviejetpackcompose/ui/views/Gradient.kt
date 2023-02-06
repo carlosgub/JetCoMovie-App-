@@ -11,14 +11,18 @@ import androidx.compose.ui.unit.Dp
 
 
 @Composable
-fun BlackVerticalGradient(size: Dp, modifier: Modifier) {
+fun BlackVerticalGradient(
+    size: Dp,
+    startColor: Color,
+    modifier: Modifier
+) {
     Box(
         modifier = modifier
             .size(size)
             .background(
                 Brush.verticalGradient(
-                    0.0f to Color.Black,
-                    0.5f to Color.Black,
+                    0.0f to startColor,
+                    0.5f to startColor,
                     1.0f to Color.Transparent,
                     startY = Float.POSITIVE_INFINITY,
                     endY = 0f

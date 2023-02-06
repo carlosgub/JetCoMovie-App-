@@ -184,6 +184,7 @@ fun ShowNoTickets(modifier: Modifier, onClick: () -> Unit) {
         )
         Button(
             onClick = { onClick() },
+            elevation = buttonNoElevation,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Transparent,
                 contentColor = Color.White
