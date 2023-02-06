@@ -16,11 +16,11 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - [X] Add the Search View.
 - [X] Add the Tickets View.
 
-## V4 ![](https://geps.dev/progress/50)
+## V4 ![](https://geps.dev/progress/100)
 - [X] Create text styles and dimens for the views and do some refactor.
 - [X] Add light/dark theme, for this change the theme in your device settings
 
-## V5
+## V5 ![](https://geps.dev/progress/0)
 - [ ] Add support to different Screens.
 - [ ] Add Unit test.
 
@@ -44,6 +44,10 @@ https://user-images.githubusercontent.com/30916886/216682539-eb0ab059-642d-41c4-
 ### Movie Detail Screen
 
 https://user-images.githubusercontent.com/30916886/216682562-b516596d-403c-4643-8b36-fb81186795e9.mp4
+
+### Light/Dark Theme
+
+https://user-images.githubusercontent.com/30916886/217094735-80182247-a023-4062-9527-c8de205e3812.mp4
 
 # References
 
