@@ -18,7 +18,7 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 
 ## V4 ![](https://geps.dev/progress/100)
 - [X] Create text styles and dimens for the views and do some refactor.
-- [X] Add light/dark theme, for this change the theme in your device settings
+- [X] Add light/dark theme (change the theme in your device settings)
 
 ## V5 ![](https://geps.dev/progress/0)
 - [ ] Add support to different Screens.
