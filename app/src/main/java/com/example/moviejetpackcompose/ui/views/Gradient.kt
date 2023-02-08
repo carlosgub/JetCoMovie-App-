@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import com.example.moviejetpackcompose.helpers.HALF_SCREEN
 
 
 @Composable
@@ -22,7 +23,7 @@ fun BlackVerticalGradient(
             .background(
                 Brush.verticalGradient(
                     0.0f to startColor,
-                    0.5f to startColor,
+                    HALF_SCREEN to startColor,
                     1.0f to Color.Transparent,
                     startY = Float.POSITIVE_INFINITY,
                     endY = 0f

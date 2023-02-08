@@ -3,6 +3,7 @@ package com.example.moviejetpackcompose.ui.features.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.TIMEOUT_FLOW
 import com.example.moviejetpackcompose.model.usecase.BookingMovieUseCase
 import com.example.moviejetpackcompose.model.usecase.DeleteBookingMovieUseCase
 import com.example.moviejetpackcompose.model.usecase.GetMovieDetailUseCase
@@ -35,7 +36,7 @@ class DetailViewModel @Inject constructor(
             }
             .stateIn(
                 viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
+                SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
                 GenericState.Loading
             )
     }
@@ -50,7 +51,7 @@ class DetailViewModel @Inject constructor(
             }
             .stateIn(
                 viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
+                SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
                 GenericState.Loading
             )
     }

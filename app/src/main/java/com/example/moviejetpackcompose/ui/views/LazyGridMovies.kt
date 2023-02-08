@@ -15,10 +15,11 @@ import com.example.moviejetpackcompose.ui.theme.myColors
 import com.example.moviejetpackcompose.ui.theme.spacing_2
 import com.example.moviejetpackcompose.ui.theme.spacing_3
 import com.example.moviejetpackcompose.ui.theme.view_60
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun LazyVerticalGridMovies(
-    list: List<MovieModel>,
+    list: ImmutableList<MovieModel>,
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     contentPaddingValues: PaddingValues = PaddingValues(vertical = spacing_3),

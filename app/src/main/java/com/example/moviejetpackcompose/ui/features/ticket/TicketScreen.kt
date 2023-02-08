@@ -23,6 +23,7 @@ import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.*
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.HALF_SCREEN
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.BottomBarScreen
@@ -30,6 +31,9 @@ import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.ui.theme.*
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun TicketScreen(
@@ -72,7 +76,7 @@ fun TicketScreen(
             )
         } else {
             TicketContent(
-                list = getDataFromUiState(uiState) ?: listOf(),
+                list = getDataFromUiState(uiState)?.toImmutableList() ?: persistentListOf(),
                 navController = navController,
                 mainNavController = mainNavController,
                 modifier = Modifier.constrainAs(content) {
@@ -95,7 +99,7 @@ fun TicketScreen(
 
 @Composable
 fun TicketContent(
-    list: List<MovieModel>,
+    list: ImmutableList<MovieModel>,
     navController: NavController,
     mainNavController: NavHostController,
     modifier: Modifier = Modifier
@@ -124,7 +128,7 @@ fun TicketContent(
             }
         } else {
             LazyVerticalGridMovies(
-                list = list,
+                list = list.toImmutableList(),
                 modifier = Modifier.constrainAs(tickets) {
                     linkTo(
                         start = parent.start,
@@ -211,7 +215,7 @@ fun ShowNoTickets(
                     .background(
                         Brush.horizontalGradient(
                             0.0f to Gold,
-                            0.5f to Gold,
+                            HALF_SCREEN to Gold,
                             1.0f to GoldDarker,
                             startX = 0f,
                             endX = Float.POSITIVE_INFINITY

@@ -28,11 +28,13 @@ import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.MINIMUM_CHARACTERS_TO_SEARCH
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.ui.theme.*
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun SearchScreen(
@@ -164,7 +166,7 @@ fun SearchContent(
 ) {
     ConstraintLayout(modifier = modifier) {
         val (hint, loading, listRef, noMovies) = createRefs()
-        if (queryValue.length < 3) {
+        if (queryValue.length < MINIMUM_CHARACTERS_TO_SEARCH) {
             Text(
                 text = "Enter at least 3 characters to search something",
                 style = Typography.body2,
@@ -220,7 +222,7 @@ fun SearchContent(
                 )
             } else {
                 LazyVerticalGridMovies(
-                    list = list,
+                    list = list.toImmutableList(),
                     state = state,
                     contentPaddingValues = PaddingValues(bottom = spacing_3),
                     modifier = Modifier.constrainAs(listRef) {

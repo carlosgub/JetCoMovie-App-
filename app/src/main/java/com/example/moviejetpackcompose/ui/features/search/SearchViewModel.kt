@@ -2,6 +2,8 @@ package com.example.moviejetpackcompose.ui.features.search
 
 import androidx.lifecycle.*
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.MINIMUM_CHARACTERS_TO_SEARCH
+import com.example.moviejetpackcompose.helpers.TIMEOUT_FLOW
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.model.usecase.GetMoviesFromQueryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +26,7 @@ class SearchViewModel @Inject constructor(
         _query
             .asFlow()
             .filter {
-                it.trim().isEmpty().not() && it.length >= 3
+                it.trim().isEmpty().not() && it.length >= MINIMUM_CHARACTERS_TO_SEARCH
             }
             .debounce(300)
             .distinctUntilChanged()
@@ -40,12 +42,12 @@ class SearchViewModel @Inject constructor(
             }
             .stateIn(
                 viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
+                SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
                 GenericState.Loading
             )
 
     fun queryFieldChange(query: String) {
-        if (query.length >= 3) _loading.value = true
+        if (query.length >= MINIMUM_CHARACTERS_TO_SEARCH) _loading.value = true
         _query.value = query
     }
 }

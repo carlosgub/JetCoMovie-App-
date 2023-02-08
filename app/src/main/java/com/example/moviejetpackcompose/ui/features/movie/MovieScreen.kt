@@ -25,6 +25,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.ONE_THIRDS_SCREEN
+import com.example.moviejetpackcompose.helpers.TWO_THIRDS_SCREEN
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
@@ -34,6 +36,8 @@ import com.example.moviejetpackcompose.ui.views.Loading
 import com.example.moviejetpackcompose.ui.views.MoviePoster
 import com.example.moviejetpackcompose.ui.views.MovieTitle
 import com.google.accompanist.pager.*
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlin.math.absoluteValue
 
 @Composable
@@ -117,7 +121,7 @@ fun MovieItem(
             imagePath = movieModel.getImagePath(),
             size = view_0,
             modifier = Modifier
-                .fillMaxHeight(0.66f)
+                .fillMaxHeight(TWO_THIRDS_SCREEN)
                 .clickable {
                     goToMovieDetail(movieModel.id)
                 }
@@ -141,7 +145,7 @@ fun MovieItem(
                 animationSpec = spring(stiffness = Spring.StiffnessVeryLow)
             ),
             modifier = Modifier
-                .fillMaxHeight(0.34f)
+                .fillMaxHeight(ONE_THIRDS_SCREEN)
                 .constrainAs(textMovieContainer) {
                     linkTo(
                         start = parent.start,
@@ -175,7 +179,7 @@ fun MovieItem(
                 )
 
                 MovieCategories(
-                    categories = movieModel.categories,
+                    categories = movieModel.categories.toImmutableList(),
                     modifier = Modifier
                         .constrainAs(categoriesChips) {
                             linkTo(
@@ -269,7 +273,7 @@ fun MovieText(
 
 @Composable
 fun MovieCategories(
-    categories: List<String>,
+    categories: ImmutableList<String>,
     modifier: Modifier = Modifier
 ) {
     ConstraintLayout(modifier = modifier.fillMaxSize()) {

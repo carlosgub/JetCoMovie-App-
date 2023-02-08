@@ -1,6 +1,6 @@
 package com.example.moviejetpackcompose.ui.features.model
 
-class MovieModel(
+data class MovieModel(
     val id: Int,
     val originalTitle: String,
     val posterPath: String?,

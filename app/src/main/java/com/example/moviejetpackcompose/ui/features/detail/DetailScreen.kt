@@ -40,6 +40,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.HALF_SCREEN
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
@@ -48,6 +49,8 @@ import com.example.moviejetpackcompose.ui.views.BlackVerticalGradient
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
 import com.example.moviejetpackcompose.ui.views.MovieTitle
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import java.math.RoundingMode
 
 @Composable
@@ -358,8 +361,9 @@ fun MovieTextContent(
                     width = Dimension.fillToConstraints
                 }
         )
+
         CategoriesChipsDetail(
-            list = movie.categories,
+            list = movie.categories.toImmutableList(),
             modifier = Modifier
                 .constrainAs(categories) {
                     linkTo(
@@ -402,7 +406,7 @@ fun IMDBRanking(modifier: Modifier = Modifier) {
             .background(
                 Brush.horizontalGradient(
                     0.0f to Gold,
-                    0.5f to Gold,
+                    HALF_SCREEN to Gold,
                     1.0f to GoldDarker,
                     startX = 0f,
                     endX = Float.POSITIVE_INFINITY
@@ -476,7 +480,7 @@ fun VoteMovie(
 }
 
 @Composable
-fun CategoriesChipsDetail(list: List<String>, modifier: Modifier = Modifier) {
+fun CategoriesChipsDetail(list: ImmutableList<String>, modifier: Modifier = Modifier) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(spacing_2_2),
         modifier = modifier,
@@ -541,7 +545,7 @@ fun Booking(
                     .background(
                         Brush.horizontalGradient(
                             0.0f to ClearRed,
-                            0.5f to Red,
+                            HALF_SCREEN to Red,
                             1.0f to Red,
                             startX = 0f,
                             endX = Float.POSITIVE_INFINITY

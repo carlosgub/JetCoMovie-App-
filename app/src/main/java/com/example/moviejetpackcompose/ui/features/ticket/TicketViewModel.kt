@@ -3,6 +3,7 @@ package com.example.moviejetpackcompose.ui.features.ticket
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviejetpackcompose.core.sealed.GenericState
+import com.example.moviejetpackcompose.helpers.TIMEOUT_FLOW
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.model.usecase.GetMoviesBookedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,7 @@ class TicketViewModel @Inject constructor(
         }
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
+            SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
             GenericState.Loading
         )
 }
