@@ -1,7 +1,6 @@
 package com.example.moviejetpackcompose.data.network.response
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.collections.immutable.ImmutableList
 
 data class MovieDetailResponse(
     val id: Int,
@@ -12,7 +11,7 @@ data class MovieDetailResponse(
     @SerializedName("release_date") val releaseDate: String?,
     @SerializedName("vote_average") val voteAverage: Double?,
     @SerializedName("vote_count") val voteCount: Int,
-    @SerializedName("genres") val genres: ImmutableList<CategoriesResponse>,
+    @SerializedName("genres") val genres: List<CategoriesResponse>,
     @SerializedName("runtime") val runtime: Int?,
     @SerializedName("overview") val overview: String?
 )
