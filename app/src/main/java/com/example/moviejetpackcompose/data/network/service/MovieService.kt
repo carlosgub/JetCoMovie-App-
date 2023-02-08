@@ -10,17 +10,15 @@ import javax.inject.Inject
 class MovieService @Inject constructor(
     private val movieClient: MovieClient
 ) {
-    suspend fun getNowPlayingMovies(): List<MovieResponse> {
-        return withContext(Dispatchers.IO) {
+    suspend fun getNowPlayingMovies(): List<MovieResponse> =
+        withContext(Dispatchers.IO) {
             val response = movieClient.getNowPlayingMovies()
             response.body()?.results ?: listOf()
         }
-    }
 
-    suspend fun getCategories(): List<CategoriesResponse> {
-        return withContext(Dispatchers.IO) {
+    suspend fun getCategories(): List<CategoriesResponse> =
+        withContext(Dispatchers.IO) {
             val response = movieClient.getCategories()
             response.body()?.genres?.filter { it.name != null && it.id != null } ?: listOf()
         }
-    }
 }

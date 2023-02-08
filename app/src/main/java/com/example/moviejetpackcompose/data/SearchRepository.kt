@@ -8,10 +8,8 @@ import javax.inject.Inject
 class SearchRepository @Inject constructor(
     private val api: SearchService
 ) {
-    suspend fun getMoviesFromQuery(query: String): List<MovieModel> {
-        return api.getMoviesFromQuery(query).map {
+    suspend fun getMoviesFromQuery(query: String): List<MovieModel> =
+        api.getMoviesFromQuery(query).map {
             it.toMovieModel(listOf())
         }
-    }
-
 }

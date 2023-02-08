@@ -18,23 +18,19 @@ import javax.inject.Singleton
 class DatabaseModule {
 
     @Provides
-    fun provideCategoryDao(movieDatabase: MovieDatabase): CategoryDao {
-        return movieDatabase.categoryDao()
-    }
+    fun provideCategoryDao(movieDatabase: MovieDatabase): CategoryDao =
+        movieDatabase.categoryDao()
 
     @Provides
-    fun provideMovieDetailDao(movieDatabase: MovieDatabase): MovieDetailDao {
-        return movieDatabase.movieDetailDao()
-    }
+    fun provideMovieDetailDao(movieDatabase: MovieDatabase): MovieDetailDao =
+        movieDatabase.movieDetailDao()
 
     @Provides
-    fun provideTicketDao(movieDatabase: MovieDatabase): TicketDao {
-        return movieDatabase.ticketDao()
-    }
+    fun provideTicketDao(movieDatabase: MovieDatabase): TicketDao =
+        movieDatabase.ticketDao()
 
     @Provides
     @Singleton
-    fun provideTodoDatabase(@ApplicationContext appContext: Context): MovieDatabase {
-        return Room.databaseBuilder(appContext, MovieDatabase::class.java, "CATEGORY").build()
-    }
+    fun provideTodoDatabase(@ApplicationContext appContext: Context): MovieDatabase =
+        Room.databaseBuilder(appContext, MovieDatabase::class.java, "CATEGORY").build()
 }

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalPagerApi::class)
-
 package com.example.moviejetpackcompose.ui.features.movie
 
 import androidx.compose.animation.AnimatedVisibility
@@ -41,7 +39,8 @@ import kotlin.math.absoluteValue
 @Composable
 fun MovieScreen(
     viewModel: MovieViewModel,
-    navController: NavController
+    navController: NavController,
+    modifier: Modifier = Modifier
 ) {
 
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -59,7 +58,7 @@ fun MovieScreen(
     )
 
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         val (pager, progress) = createRefs()
         val pagerState = rememberPagerState()
@@ -107,10 +106,11 @@ fun MovieItem(
     pagerState: PagerState,
     page: Int,
     movieModel: MovieModel,
+    modifier: Modifier = Modifier,
     goToMovieDetail: (Int) -> Unit
 ) {
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         val (movieCard, textMovieContainer) = createRefs()
         MoviePoster(
@@ -197,7 +197,7 @@ fun MovieItem(
 @Composable
 fun MovieText(
     movieModel: MovieModel,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     ConstraintLayout(modifier = modifier) {
         val (movieTimeIcon, movieTimeSpacer, movieTimeText, movieTitle) = createRefs()
@@ -270,7 +270,7 @@ fun MovieText(
 @Composable
 fun MovieCategories(
     categories: List<String>,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     ConstraintLayout(modifier = modifier.fillMaxSize()) {
         val (firstCategoryRef, secondCategoryRef) = createRefs()

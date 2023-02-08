@@ -35,7 +35,8 @@ import com.example.moviejetpackcompose.ui.views.Loading
 fun TicketScreen(
     viewModel: TicketViewModel,
     navController: NavController,
-    mainNavController: NavHostController
+    mainNavController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val uiState by produceState<GenericState<List<MovieModel>>>(
@@ -52,7 +53,7 @@ fun TicketScreen(
     )
 
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
     ) {
         val (loading, content) = createRefs()
@@ -97,7 +98,7 @@ fun TicketContent(
     list: List<MovieModel>,
     navController: NavController,
     mainNavController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -144,7 +145,10 @@ fun TicketContent(
 }
 
 @Composable
-fun ShowNoTickets(modifier: Modifier, onClick: () -> Unit) {
+fun ShowNoTickets(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
     ConstraintLayout(modifier = modifier) {
         val (lottie, spacer, button) = createRefs()
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.ticket))

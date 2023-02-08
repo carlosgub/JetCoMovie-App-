@@ -11,11 +11,10 @@ class TicketRepository @Inject constructor(
     private val ticketDao: TicketDao
 ) {
 
-    fun getMoviesBooked(): Flow<List<MovieModel>> {
-        return ticketDao.getMovies().map { list ->
+    fun getMoviesBooked(): Flow<List<MovieModel>> =
+        ticketDao.getMovies().map { list ->
             list.map { movieEntity ->
                 movieEntity.toMovieModel()
             }
         }
-    }
 }

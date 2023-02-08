@@ -16,8 +16,8 @@ class MovieRepository @Inject constructor(
     private val api: MovieService,
     private val categoryDao: CategoryDao
 ) {
-    suspend fun getNowPlayingMovies(): List<MovieModel> {
-        return withContext(Dispatchers.Default) {
+    suspend fun getNowPlayingMovies(): List<MovieModel> =
+        withContext(Dispatchers.Default) {
             val listCategory = categoryDao.getCategories()
             if (listCategory.isEmpty()) {
                 val categories = api.getCategories()
@@ -42,6 +42,5 @@ class MovieRepository @Inject constructor(
                 }.awaitAll()
             }
         }
-    }
 
 }

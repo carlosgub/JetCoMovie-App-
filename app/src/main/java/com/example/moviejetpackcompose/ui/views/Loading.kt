@@ -8,7 +8,7 @@ import com.example.moviejetpackcompose.R
 
 @Composable
 fun Loading(
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
     val progressLottie by animateLottieCompositionAsState(

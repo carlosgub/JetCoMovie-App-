@@ -1,0 +1,5 @@
+[*.{kt,kts}]
+twitter_compose_content_emitters = DetailScreen, DetailScreen, MovieDetailContent, CloseMovie, MovieDuration
+
+[*.{kt,kts}]
+twitter_compose_preview_public_only_if_params = false

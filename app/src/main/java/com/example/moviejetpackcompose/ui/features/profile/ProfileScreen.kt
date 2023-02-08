@@ -8,9 +8,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.moviejetpackcompose.ui.theme.myColors
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(modifier: Modifier = Modifier) {
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         val (text) = createRefs()
         Text(

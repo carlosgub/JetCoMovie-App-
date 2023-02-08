@@ -8,7 +8,11 @@ import com.example.moviejetpackcompose.ui.theme.Typography
 import com.example.moviejetpackcompose.ui.theme.myColors
 
 @Composable
-fun MovieTitle(title: String, modifier: Modifier, textAlign: TextAlign? = null) {
+fun MovieTitle(
+    title: String,
+    modifier: Modifier = Modifier,
+    textAlign: TextAlign? = null
+) {
     Text(
         text = title,
         style = Typography.h4,

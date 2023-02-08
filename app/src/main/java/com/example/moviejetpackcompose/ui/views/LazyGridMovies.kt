@@ -19,7 +19,7 @@ import com.example.moviejetpackcompose.ui.theme.view_60
 @Composable
 fun LazyVerticalGridMovies(
     list: List<MovieModel>,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     contentPaddingValues: PaddingValues = PaddingValues(vertical = spacing_3),
     itemClicked: (it: Int) -> Unit
@@ -41,10 +41,11 @@ fun LazyVerticalGridMovies(
 @Composable
 fun MovieBookedItem(
     movieModel: MovieModel,
+    modifier: Modifier = Modifier,
     goToMovieDetail: (Int) -> Unit
 ) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(all = spacing_3)
     ) {

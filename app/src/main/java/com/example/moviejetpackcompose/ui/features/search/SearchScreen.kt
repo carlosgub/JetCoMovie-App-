@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalComposeUiApi::class, ExperimentalComposeUiApi::class)
-
 package com.example.moviejetpackcompose.ui.features.search
 
 import androidx.compose.foundation.layout.*
@@ -11,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -40,7 +37,8 @@ import com.example.moviejetpackcompose.ui.views.Loading
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel,
-    mainNavController: NavController
+    mainNavController: NavController,
+    modifier: Modifier = Modifier
 ) {
 
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -61,7 +59,7 @@ fun SearchScreen(
     )
 
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         val (query, content) = createRefs()
         SearchTextField(
@@ -108,7 +106,7 @@ fun SearchScreen(
 fun SearchTextField(
     queryValue: String,
     keyboardController: SoftwareKeyboardController?,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
@@ -161,7 +159,7 @@ fun SearchContent(
     queryValue: String,
     keyboardController: SoftwareKeyboardController?,
     showLoading: Boolean,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onItemListClicked: (Int) -> Unit
 ) {
     ConstraintLayout(modifier = modifier) {
@@ -247,7 +245,9 @@ fun SearchContent(
 }
 
 @Composable
-fun ShowNoMoviesFound(modifier: Modifier) {
+fun ShowNoMoviesFound(
+    modifier: Modifier = Modifier
+) {
     ConstraintLayout(modifier = modifier) {
         val (lottie, spacer, text) = createRefs()
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.no_found))

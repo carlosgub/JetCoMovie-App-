@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.Dp
 fun BlackVerticalGradient(
     size: Dp,
     startColor: Color,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier

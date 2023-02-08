@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-
 package com.example.moviejetpackcompose.ui.features.search
 
 import androidx.lifecycle.*
@@ -7,8 +5,6 @@ import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.model.usecase.GetMoviesFromQueryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

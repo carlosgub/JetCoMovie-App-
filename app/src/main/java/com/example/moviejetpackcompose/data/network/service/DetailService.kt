@@ -9,10 +9,9 @@ import javax.inject.Inject
 class DetailService @Inject constructor(
     private val detailClient: DetailClient
 ) {
-    suspend fun getMovieDetail(movieId: String): MovieDetailResponse {
-        return withContext(Dispatchers.IO) {
+    suspend fun getMovieDetail(movieId: String): MovieDetailResponse =
+        withContext(Dispatchers.IO) {
             val response = detailClient.getMovieDetail(movieId = movieId)
             response.body()!!
         }
-    }
 }

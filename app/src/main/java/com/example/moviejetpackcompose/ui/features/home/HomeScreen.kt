@@ -39,12 +39,14 @@ fun HomeScreen(
     movieViewModel: MovieViewModel,
     ticketViewModel: TicketViewModel,
     searchViewModel: SearchViewModel,
-    mainNavController: NavHostController
+    mainNavController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
-        backgroundColor = myColors.background
+        backgroundColor = myColors.background,
+        modifier = modifier
     ) { paddingValues ->
         BottomNavGraph(
             navController = navController,
@@ -60,13 +62,16 @@ fun HomeScreen(
 }
 
 @Composable
-fun BottomBar(navController: NavHostController) {
+fun BottomBar(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
 
     val navStackBackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navStackBackEntry?.destination
 
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .background(Color.Transparent)
             .fillMaxWidth(),
     ) {
@@ -154,7 +159,7 @@ fun AddItem(
     screen: BottomBarScreen,
     currentDestination: NavDestination?,
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
@@ -235,7 +240,7 @@ fun BottomNavGraph(
     movieViewModel: MovieViewModel,
     ticketViewModel: TicketViewModel,
     searchViewModel: SearchViewModel,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,

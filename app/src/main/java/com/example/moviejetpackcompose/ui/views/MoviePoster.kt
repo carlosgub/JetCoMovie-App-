@@ -19,7 +19,11 @@ import com.example.moviejetpackcompose.ui.theme.RoundedShape
 
 
 @Composable
-fun MoviePoster(imagePath: String, modifier: Modifier, size: Dp) {
+fun MoviePoster(
+    imagePath: String,
+    size: Dp,
+    modifier: Modifier = Modifier
+) {
     Card(
         shape = RoundedShape,
         border = BorderStroke(0.5.dp, Color.Gray),

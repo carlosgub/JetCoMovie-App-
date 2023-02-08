@@ -1,12 +1,6 @@
-@file:OptIn(
-    ExperimentalAnimationApi::class, ExperimentalAnimationApi::class,
-    ExperimentalAnimationApi::class, ExperimentalAnimationApi::class
-)
-
 package com.example.moviejetpackcompose.ui.features.detail
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,7 +9,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Close
@@ -34,7 +31,6 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
@@ -52,13 +48,15 @@ import com.example.moviejetpackcompose.ui.views.BlackVerticalGradient
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
 import com.example.moviejetpackcompose.ui.views.MovieTitle
+import kotlinx.collections.immutable.ImmutableList
 import java.math.RoundingMode
 
 @Composable
 fun DetailScreen(
     viewModel: DetailViewModel,
     navController: NavController,
-    id: Int
+    id: Int,
+    modifier: Modifier = Modifier
 ) {
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val uiState by produceState<GenericState<MovieModel>>(
@@ -91,7 +89,7 @@ fun DetailScreen(
     viewModel.isMovieBookedState(id.toString())
 
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(myColors.background)
     ) {
@@ -152,7 +150,7 @@ fun DetailScreen(
 fun MovieDetailContent(
     movie: MovieModel,
     navController: NavController,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
 
     val state = rememberScrollState()
@@ -210,7 +208,10 @@ fun MovieDetailContent(
 }
 
 @Composable
-fun CloseMovie(navController: NavController, modifier: Modifier) {
+fun CloseMovie(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     Icon(
         imageVector = Icons.Filled.Close,
         contentDescription = "Close screen",
@@ -230,7 +231,10 @@ fun CloseMovie(navController: NavController, modifier: Modifier) {
 }
 
 @Composable
-fun MovieDuration(duration: String, modifier: Modifier) {
+fun MovieDuration(
+    duration: String,
+    modifier: Modifier = Modifier
+) {
     ConstraintLayout(
         modifier = modifier
             .clip(CircleShape)
@@ -273,7 +277,10 @@ fun MovieDuration(duration: String, modifier: Modifier) {
 }
 
 @Composable
-fun MoviePosterDetail(path: String, modifier: Modifier) {
+fun MoviePosterDetail(
+    path: String,
+    modifier: Modifier = Modifier
+) {
     ConstraintLayout(modifier = modifier.fillMaxWidth()) {
         val (poster, gradient) = createRefs()
         AsyncImage(
@@ -310,7 +317,10 @@ fun MoviePosterDetail(path: String, modifier: Modifier) {
 }
 
 @Composable
-fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
+fun MovieTextContent(
+    movie: MovieModel,
+    modifier: Modifier = Modifier
+) {
     ConstraintLayout(
         modifier = modifier
             .fillMaxSize()
@@ -384,7 +394,7 @@ fun MovieTextContent(movie: MovieModel, modifier: Modifier) {
 }
 
 @Composable
-fun IMDBRanking(modifier: Modifier) {
+fun IMDBRanking(modifier: Modifier = Modifier) {
     Text(
         text = "IMDB 7.0",
         style = Typography.body2,
@@ -411,7 +421,7 @@ fun IMDBRanking(modifier: Modifier) {
 fun VoteMovie(
     voteAverage: Double,
     voteCount: Int,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     ConstraintLayout(modifier = modifier) {
         val (icon, voteAverageRef, voteCountRef) = createRefs()
@@ -467,7 +477,7 @@ fun VoteMovie(
 }
 
 @Composable
-fun CategoriesChipsDetail(list: List<String>, modifier: Modifier) {
+fun CategoriesChipsDetail(list: List<String>, modifier: Modifier = Modifier) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(spacing_2_2),
         modifier = modifier,
@@ -484,7 +494,7 @@ fun CategoriesChipsDetail(list: List<String>, modifier: Modifier) {
 @Composable
 fun Booking(
     isMovieBooked: Boolean,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     ConstraintLayout(
