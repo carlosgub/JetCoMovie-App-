@@ -1,6 +1,5 @@
 package com.example.moviejetpackcompose.data.network.response
 
-import com.example.moviejetpackcompose.data.network.response.CategoriesResponse
 import com.google.gson.annotations.SerializedName
 import kotlinx.collections.immutable.ImmutableList
 

@@ -34,7 +34,8 @@ class SearchViewModel @Inject constructor(
             .map {
                 _loading.value = false
                 GenericState.Success(it)
-            }.catch {
+            }
+            .catch {
                 GenericState.Error(it.message.orEmpty())
             }
             .stateIn(

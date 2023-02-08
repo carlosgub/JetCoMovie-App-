@@ -11,11 +11,10 @@ class MovieModel(
     val runtime: String? = null,
     val overview: String? = null
 ) {
-    fun getImagePath(): String {
-        return if (posterPath != null) {
+    fun getImagePath(): String =
+        if (posterPath != null) {
             "https://image.tmdb.org/t/p/w500${posterPath}"
         } else {
             "https://i.stack.imgur.com/GNhx0.png"
         }
-    }
 }

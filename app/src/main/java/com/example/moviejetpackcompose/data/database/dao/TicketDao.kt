@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TicketDao {
-
     @Query("SELECT * FROM MovieEntity")
     fun getMovies(): Flow<List<MovieEntity>>
 }

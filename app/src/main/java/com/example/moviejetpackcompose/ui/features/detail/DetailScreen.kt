@@ -48,7 +48,6 @@ import com.example.moviejetpackcompose.ui.views.BlackVerticalGradient
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
 import com.example.moviejetpackcompose.ui.views.MovieTitle
-import kotlinx.collections.immutable.ImmutableList
 import java.math.RoundingMode
 
 @Composable

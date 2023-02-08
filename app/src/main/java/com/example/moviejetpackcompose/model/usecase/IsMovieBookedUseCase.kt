@@ -9,5 +9,4 @@ class IsMovieBookedUseCase @Inject constructor(
 ) {
     operator fun invoke(movieId: String): Flow<Boolean> =
         detailRepository.isMovieBooked(movieId)
-
 }

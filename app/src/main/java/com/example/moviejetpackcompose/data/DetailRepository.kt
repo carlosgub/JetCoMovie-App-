@@ -32,5 +32,4 @@ class DetailRepository @Inject constructor(
     suspend fun deleteMovie(movieModel: MovieModel) {
         movieDetailDao.deleteMovie(movieModel.toMovieEntity())
     }
-
 }

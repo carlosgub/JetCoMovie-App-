@@ -24,5 +24,4 @@ fun CategoryChip(category: String?, modifier: Modifier = Modifier) {
             )
         )
     }
-
 }

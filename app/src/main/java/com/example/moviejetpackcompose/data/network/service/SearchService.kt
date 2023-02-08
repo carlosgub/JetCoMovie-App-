@@ -9,10 +9,9 @@ import javax.inject.Inject
 class SearchService @Inject constructor(
     private val searchClient: SearchClient
 ) {
-    suspend fun getMoviesFromQuery(query: String): List<MovieResponse> {
-        return withContext(Dispatchers.IO) {
+    suspend fun getMoviesFromQuery(query: String): List<MovieResponse> =
+        withContext(Dispatchers.IO) {
             val response = searchClient.getMoviesFromQuery(query = query)
             response.body()?.results ?: listOf()
         }
-    }
 }

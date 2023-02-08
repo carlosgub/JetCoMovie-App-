@@ -8,7 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface DetailClient {
-
     @GET("/3/movie/{movie_id}")
     suspend fun getMovieDetail(
         @Path("movie_id") movieId: String,

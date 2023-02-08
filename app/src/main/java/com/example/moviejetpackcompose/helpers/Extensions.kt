@@ -44,8 +44,8 @@ fun MovieResponse.toMovieModelWithCategoriesResponse(categories: List<Categories
     )
 }
 
-fun MovieDetailResponse.toMovieModel(): MovieModel {
-    return MovieModel(
+fun MovieDetailResponse.toMovieModel(): MovieModel =
+    MovieModel(
         id = id,
         originalTitle = originalTitle,
         posterPath = posterPath,
@@ -58,10 +58,9 @@ fun MovieDetailResponse.toMovieModel(): MovieModel {
         runtime = runtime.minutesToTimeString(),
         overview = overview
     )
-}
 
-fun MovieModel.toMovieEntity(): MovieEntity {
-    return MovieEntity(
+fun MovieModel.toMovieEntity(): MovieEntity =
+    MovieEntity(
         id = id,
         originalTitle = originalTitle,
         posterPath = posterPath,
@@ -72,10 +71,9 @@ fun MovieModel.toMovieEntity(): MovieEntity {
         runtime = runtime,
         overview = overview
     )
-}
 
-fun MovieEntity.toMovieModel(): MovieModel {
-    return MovieModel(
+fun MovieEntity.toMovieModel(): MovieModel =
+    MovieModel(
         id = id,
         originalTitle = originalTitle,
         posterPath = posterPath,
@@ -86,14 +84,12 @@ fun MovieEntity.toMovieModel(): MovieModel {
         runtime = runtime,
         overview = overview
     )
-}
 
-fun Int?.minutesToTimeString(): String? {
-    return if (this == null) {
+fun Int?.minutesToTimeString(): String? =
+    if (this == null) {
         null
     } else {
         val hours: Int = this / 60
         val minutes: Int = this % 60
         "${hours}h ${minutes}m"
     }
-}

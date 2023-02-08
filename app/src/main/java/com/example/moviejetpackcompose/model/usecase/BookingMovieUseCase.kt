@@ -7,7 +7,6 @@ import javax.inject.Inject
 class BookingMovieUseCase @Inject constructor(
     private val detailRepository: DetailRepository
 ) {
-    suspend operator fun invoke(movieModel: MovieModel): Unit =
+    suspend operator fun invoke(movieModel: MovieModel) =
         detailRepository.addMovie(movieModel)
-
 }

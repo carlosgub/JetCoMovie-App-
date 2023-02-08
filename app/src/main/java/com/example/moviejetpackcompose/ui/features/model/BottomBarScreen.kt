@@ -38,5 +38,4 @@ sealed class BottomBarScreen(
         title = "Profile",
         icon = Icons.Outlined.AccountCircle,
     )
-
 }

@@ -41,5 +41,4 @@ tasks.withType<Detekt>().configureEach {
         txt.required.set(false)
     }
 }
-
 //endregion

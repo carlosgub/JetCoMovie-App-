@@ -3,7 +3,6 @@ package com.example.moviejetpackcompose.ui.theme
 import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
 
-
 data class MyColors(
     val material: Colors,
     val chip: Color,
