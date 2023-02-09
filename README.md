@@ -55,21 +55,38 @@ https://user-images.githubusercontent.com/30916886/216682562-b516596d-403c-4643-
 
 https://user-images.githubusercontent.com/30916886/217094735-80182247-a023-4062-9527-c8de205e3812.mp4
 
+## Tech Stack
+
+- [Kotlin](https://kotlinlang.org/) - Official programming language for Android development.
+- [Jetpack Compose](https://developer.android.com/jetpack/compose) - Android’s modern toolkit for building native UI.
+- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) and [Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html#asynchronous-flow) - Official Kotlin's tooling for performing asynchronous work.
+- [Android Jetpack](https://developer.android.com/jetpack) - Jetpack is a suite of libraries to help developers build state-of-the-art applications.
+	- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - The ViewModel is designed to store and manage UI-related data in a lifecycle conscious way.
+	- [Room](https://developer.android.com/topic/libraries/architecture/room) - The Room library provides an abstraction layer over SQLite to allow for more robust database access.
+	- [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Hilt is a dependency injection library for Android.
+- [Accompanist](https://github.com/google/accompanist) - A collection of extension libraries for Jetpack Compose.
+- [Retrofit](https://github.com/square/retrofit) - A library for building REST API clients.
+- [Coil](https://github.com/coil-kt/coil) - An image loading library.
+- [Detekt](https://github.com/detekt/detekt) - A static code analysis library for Kotlin.
+- [Ktlint](https://github.com/pinterest/ktlint) [(Kotlinter)](https://github.com/jeremymailen/kotlinter-gradle) - A library for formatting Kotlin code according to official guidelines.
+- [Twitter Jetpack Compose Rules](https://twitter.github.io/compose-rules/)
+- [Gradle's Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) - Gradle’s Kotlin DSL is an alternative syntax to the Groovy DSL with an enhanced editing experience.
+
 # References
 
-- Jetpack Compose doc https://developer.android.com/jetpack/compose
+- [Jetpack Compose](https://developer.android.com/jetpack/compose)
 
-- Design https://dribbble.com/shots/18839708-Movie-Tickets-Mobile-App
+- [Design](https://dribbble.com/shots/18839708-Movie-Tickets-Mobile-App)
 
-- Build custom bottom navigation Bar https://www.boltuix.com/2022/08/custom-bottom-navigation-bar.html
+- [Build custom bottom navigation Bar](https://www.boltuix.com/2022/08/custom-bottom-navigation-bar.html)
 
-- Background Gradient https://semicolonspace.com/android-jetpack-compose-gradient/
+- [Background Gradient](https://semicolonspace.com/android-jetpack-compose-gradient/)
 
-- Library where I got the horizontal viewpager https://github.com/google/accompanist
+- [Library where I got the horizontal viewpager](https://github.com/google/accompanist)
 
-- CompositionLocal for the light/dark teme https://developer.android.com/jetpack/compose/compositionlocal
+- [CompositionLocal for the light/dark teme](https://developer.android.com/jetpack/compose/compositionlocal)
 
-- Add more colors to the material theme https://gustav-karlsson.medium.com/extending-the-jetpack-compose-material-theme-with-more-colors-e1b849390d50
+- [Add more colors to the material theme](https://gustav-karlsson.medium.com/extending-the-jetpack-compose-material-theme-with-more-colors-e1b849390d50)
 
 ## Contributors ✨
 
