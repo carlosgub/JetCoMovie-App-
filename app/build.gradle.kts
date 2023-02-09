@@ -1,4 +1,5 @@
 plugins {
+    id("org.jmailen.kotlinter")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
@@ -50,7 +51,7 @@ android {
         freeCompilerArgs =
             freeCompilerArgs + experimentalOptIns
 
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true

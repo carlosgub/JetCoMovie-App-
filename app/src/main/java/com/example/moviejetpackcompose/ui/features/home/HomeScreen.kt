@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -32,7 +35,15 @@ import com.example.moviejetpackcompose.ui.features.search.SearchScreen
 import com.example.moviejetpackcompose.ui.features.search.SearchViewModel
 import com.example.moviejetpackcompose.ui.features.ticket.TicketScreen
 import com.example.moviejetpackcompose.ui.features.ticket.TicketViewModel
-import com.example.moviejetpackcompose.ui.theme.*
+import com.example.moviejetpackcompose.ui.theme.ClearRed
+import com.example.moviejetpackcompose.ui.theme.DividerColor
+import com.example.moviejetpackcompose.ui.theme.Red
+import com.example.moviejetpackcompose.ui.theme.divider_thickness
+import com.example.moviejetpackcompose.ui.theme.myColors
+import com.example.moviejetpackcompose.ui.theme.spacing_2
+import com.example.moviejetpackcompose.ui.theme.spacing_2_2
+import com.example.moviejetpackcompose.ui.theme.spacing_4_2
+import com.example.moviejetpackcompose.ui.theme.view_10
 
 @Composable
 fun HomeScreen(
