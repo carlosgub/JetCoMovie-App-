@@ -1,4 +1,4 @@
-name: Android CI
+3name: Android CI
 
 on:
   push:
@@ -24,7 +24,11 @@ jobs:
       run: chmod +x gradlew
     - name: Run detekt
       run: ./gradlew detekt
-    - name: Run lint
-      run: ./gradlew lint
+    - name: Run lint Android test
+      run: ./gradlew :app:lintKotlinAndroidTest
+    - name: Run lint main
+      run: ./gradlew :app:lintKotlinMain
+    - name: Run lint test
+      run: ./gradlew :app:lintKotlinTest
     - name: Build with Gradle
       run: ./gradlew build
