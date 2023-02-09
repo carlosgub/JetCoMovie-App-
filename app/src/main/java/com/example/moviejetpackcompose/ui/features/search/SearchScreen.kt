@@ -1,14 +1,26 @@
 package com.example.moviejetpackcompose.ui.features.search
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,13 +37,26 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.*
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.helpers.MINIMUM_CHARACTERS_TO_SEARCH
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-import com.example.moviejetpackcompose.ui.theme.*
+import com.example.moviejetpackcompose.ui.theme.RoundedShape
+import com.example.moviejetpackcompose.ui.theme.TextFieldBackgroundColor
+import com.example.moviejetpackcompose.ui.theme.TextFieldStyle
+import com.example.moviejetpackcompose.ui.theme.TextFieldTextColor
+import com.example.moviejetpackcompose.ui.theme.myColors
+import com.example.moviejetpackcompose.ui.theme.spacing_3
+import com.example.moviejetpackcompose.ui.theme.spacing_4
+import com.example.moviejetpackcompose.ui.theme.spacing_6
+import com.example.moviejetpackcompose.ui.theme.view_50
+import com.example.moviejetpackcompose.ui.theme.view_6
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
 import kotlinx.collections.immutable.toImmutableList
@@ -42,7 +67,6 @@ fun SearchScreen(
     mainNavController: NavController,
     modifier: Modifier = Modifier
 ) {
-
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val keyboardController = LocalSoftwareKeyboardController.current
     val queryValue: String by viewModel.query.observeAsState(initial = "")
@@ -169,7 +193,7 @@ fun SearchContent(
         if (queryValue.length < MINIMUM_CHARACTERS_TO_SEARCH) {
             Text(
                 text = "Enter at least 3 characters to search something",
-                style = Typography.body2,
+                style = MaterialTheme.typography.body2,
                 color = myColors.surface,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.constrainAs(hint) {
@@ -241,7 +265,6 @@ fun SearchContent(
                     onItemListClicked(it)
                 }
             }
-
         }
     }
 }

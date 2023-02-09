@@ -6,11 +6,18 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.graphicsLayer
@@ -30,12 +37,24 @@ import com.example.moviejetpackcompose.helpers.TWO_THIRDS_SCREEN
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-import com.example.moviejetpackcompose.ui.theme.*
+import com.example.moviejetpackcompose.ui.theme.myColors
+import com.example.moviejetpackcompose.ui.theme.spacing_10
+import com.example.moviejetpackcompose.ui.theme.spacing_2
+import com.example.moviejetpackcompose.ui.theme.spacing_3
+import com.example.moviejetpackcompose.ui.theme.spacing_4
+import com.example.moviejetpackcompose.ui.theme.spacing_4_2
+import com.example.moviejetpackcompose.ui.theme.spacing_6
+import com.example.moviejetpackcompose.ui.theme.view_0
+import com.example.moviejetpackcompose.ui.theme.view_2
+import com.example.moviejetpackcompose.ui.theme.view_6
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
 import com.example.moviejetpackcompose.ui.views.MoviePoster
 import com.example.moviejetpackcompose.ui.views.MovieTitle
-import com.google.accompanist.pager.*
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.math.absoluteValue
@@ -46,7 +65,6 @@ fun MovieScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val uiState by produceState<GenericState<List<MovieModel>>>(
         initialValue = GenericState.Loading,
@@ -82,7 +100,8 @@ fun MovieScreen(
                 }
             )
         } else {
-            HorizontalPager(count = list.size,
+            HorizontalPager(
+                count = list.size,
                 state = pagerState,
                 contentPadding = PaddingValues(horizontal = spacing_10),
                 modifier = Modifier
@@ -100,7 +119,6 @@ fun MovieScreen(
                 }
             }
         }
-
     }
 }
 
@@ -154,7 +172,7 @@ fun MovieItem(
                     linkTo(
                         top = movieCard.bottom,
                         topMargin = spacing_4_2,
-                        bottom = parent.bottom,
+                        bottom = parent.bottom
                     )
                     width = Dimension.fillToConstraints
                     height = Dimension.fillToConstraints
@@ -194,7 +212,6 @@ fun MovieItem(
                 )
             }
         }
-
     }
 }
 
@@ -280,7 +297,8 @@ fun MovieCategories(
         val (firstCategoryRef, secondCategoryRef) = createRefs()
 
         val firstCategory = categories.firstOrNull()
-        CategoryChip(category = firstCategory,
+        CategoryChip(
+            category = firstCategory,
             modifier = Modifier.constrainAs(firstCategoryRef) {
                 linkTo(
                     start = parent.start,
@@ -291,10 +309,12 @@ fun MovieCategories(
                 )
                 visibility =
                     if (firstCategory != null) Visibility.Visible else Visibility.Gone
-            })
+            }
+        )
 
         val secondCategory = categories.getOrNull(1)
-        CategoryChip(category = secondCategory,
+        CategoryChip(
+            category = secondCategory,
             modifier = Modifier.constrainAs(secondCategoryRef) {
                 linkTo(
                     start = firstCategoryRef.end,
@@ -304,12 +324,12 @@ fun MovieCategories(
                 )
                 visibility =
                     if (secondCategory != null) Visibility.Visible else Visibility.Gone
-            })
+            }
+        )
     }
 }
 
-
-//This code is from https://google.github.io/accompanist/pager/#item-scroll-effects
+// This code is from https://google.github.io/accompanist/pager/#item-scroll-effects
 private fun GraphicsLayerScope.animationMovieItem(pageOffset: Float) {
     lerp(
         start = 0.85f,
@@ -326,4 +346,3 @@ private fun GraphicsLayerScope.animationMovieItem(pageOffset: Float) {
         fraction = 1f - pageOffset.coerceIn(0f, 1f)
     )
 }
-

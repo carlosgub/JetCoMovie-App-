@@ -1,7 +1,11 @@
 package com.example.moviejetpackcompose.ui.features.ticket
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -20,7 +24,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.airbnb.lottie.compose.*
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.helpers.HALF_SCREEN
@@ -28,7 +36,13 @@ import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.BottomBarScreen
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-import com.example.moviejetpackcompose.ui.theme.*
+import com.example.moviejetpackcompose.ui.theme.Gold
+import com.example.moviejetpackcompose.ui.theme.GoldDarker
+import com.example.moviejetpackcompose.ui.theme.buttonNoElevation
+import com.example.moviejetpackcompose.ui.theme.spacing_4
+import com.example.moviejetpackcompose.ui.theme.spacing_7
+import com.example.moviejetpackcompose.ui.theme.view_50
+import com.example.moviejetpackcompose.ui.theme.view_6
 import com.example.moviejetpackcompose.ui.views.LazyVerticalGridMovies
 import com.example.moviejetpackcompose.ui.views.Loading
 import kotlinx.collections.immutable.ImmutableList
@@ -92,7 +106,6 @@ fun TicketScreen(
                     height = Dimension.fillToConstraints
                 }
             )
-
         }
     }
 }

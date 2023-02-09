@@ -77,14 +77,13 @@ fun BottomBar(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-
     val navStackBackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navStackBackEntry?.destination
 
     ConstraintLayout(
         modifier = modifier
             .background(Color.Transparent)
-            .fillMaxWidth(),
+            .fillMaxWidth()
     ) {
         val (movie, search, ticket, profile, divider) = createRefs()
 
@@ -175,19 +174,23 @@ fun AddItem(
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
 
     val background =
-        if (selected) Brush.horizontalGradient(
-            colors = listOf(
-                ClearRed,
-                Red
-            ),
-            startX = 0f,
-            endX = Float.POSITIVE_INFINITY
-        ) else Brush.horizontalGradient(
-            colors = listOf(
-                Color.Transparent,
-                Color.Transparent
+        if (selected) {
+            Brush.horizontalGradient(
+                colors = listOf(
+                    ClearRed,
+                    Red
+                ),
+                startX = 0f,
+                endX = Float.POSITIVE_INFINITY
             )
-        )
+        } else {
+            Brush.horizontalGradient(
+                colors = listOf(
+                    Color.Transparent,
+                    Color.Transparent
+                )
+            )
+        }
 
     val contentColor =
         if (selected) Color.White else Color.Gray

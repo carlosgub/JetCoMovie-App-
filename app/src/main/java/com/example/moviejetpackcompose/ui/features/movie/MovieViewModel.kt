@@ -7,7 +7,11 @@ import com.example.moviejetpackcompose.helpers.TIMEOUT_FLOW
 import com.example.moviejetpackcompose.model.usecase.GetNowPlayingMoviesUseCase
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel

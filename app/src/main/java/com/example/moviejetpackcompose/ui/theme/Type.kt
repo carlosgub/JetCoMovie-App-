@@ -11,7 +11,7 @@ val Typography = Typography(
     h4 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
+        fontSize = 32.sp
     ),
     h6 = TextStyle(
         fontWeight = FontWeight.Medium,
@@ -36,7 +36,7 @@ val Typography = Typography(
     caption = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 12.sp,
+        fontSize = 12.sp
     )
 )
 
@@ -44,5 +44,5 @@ val TextFieldStyle =
     TextStyle(
         color = TextFieldTextColor,
         fontFamily = FontFamily.Default,
-        fontSize = 16.sp,
+        fontSize = 16.sp
     )

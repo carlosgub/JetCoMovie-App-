@@ -16,8 +16,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.ui.theme.RoundedShape
-
-
 @Composable
 fun MoviePoster(
     imagePath: String,

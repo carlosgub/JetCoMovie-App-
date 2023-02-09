@@ -16,6 +16,6 @@ interface MovieClient {
 
     @GET("/3/genre/movie/list")
     suspend fun getCategories(
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Response<GetCategoriesResponse>
 }

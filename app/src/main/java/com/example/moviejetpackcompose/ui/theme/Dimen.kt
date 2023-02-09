@@ -3,7 +3,6 @@ package com.example.moviejetpackcompose.ui.theme
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-
 /*region spacing*/
 val spacing_1: Dp = 4.dp
 val spacing_1_2: Dp = 6.dp
@@ -31,5 +30,5 @@ val view_75: Dp = 300.dp
 /*endregion*/
 
 /*region divider*/
-val divider_thickness:Dp = 0.25.dp
+val divider_thickness: Dp = 0.25.dp
 /*endregion*/

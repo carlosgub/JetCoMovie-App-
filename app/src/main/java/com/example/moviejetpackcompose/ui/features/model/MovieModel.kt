@@ -13,7 +13,7 @@ data class MovieModel(
 ) {
     fun getImagePath(): String =
         if (posterPath != null) {
-            "https://image.tmdb.org/t/p/w500${posterPath}"
+            "https://image.tmdb.org/t/p/w500$posterPath"
         } else {
             "https://i.stack.imgur.com/GNhx0.png"
         }

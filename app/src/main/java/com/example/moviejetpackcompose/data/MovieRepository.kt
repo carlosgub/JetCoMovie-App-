@@ -3,9 +3,9 @@ package com.example.moviejetpackcompose.data
 import com.example.moviejetpackcompose.data.database.dao.CategoryDao
 import com.example.moviejetpackcompose.data.database.model.CategoryEntity
 import com.example.moviejetpackcompose.data.network.service.MovieService
-import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.helpers.toMovieModel
 import com.example.moviejetpackcompose.helpers.toMovieModelWithCategoriesResponse
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

@@ -1,20 +1,31 @@
 package com.example.moviejetpackcompose.ui.features.search
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.helpers.MINIMUM_CHARACTERS_TO_SEARCH
 import com.example.moviejetpackcompose.helpers.TIMEOUT_FLOW
-import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.model.usecase.GetMoviesFromQueryUseCase
+import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     getMoviesFromQueryUseCase: GetMoviesFromQueryUseCase
 ) : ViewModel() {
-
 
     private val _query = MutableLiveData<String>()
     val query: LiveData<String> = _query

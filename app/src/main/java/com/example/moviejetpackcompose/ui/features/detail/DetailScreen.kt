@@ -3,7 +3,12 @@ package com.example.moviejetpackcompose.ui.features.detail
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +17,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
@@ -44,7 +50,24 @@ import com.example.moviejetpackcompose.helpers.HALF_SCREEN
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
 import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-import com.example.moviejetpackcompose.ui.theme.*
+import com.example.moviejetpackcompose.ui.theme.ClearRed
+import com.example.moviejetpackcompose.ui.theme.Gold
+import com.example.moviejetpackcompose.ui.theme.GoldDarker
+import com.example.moviejetpackcompose.ui.theme.Red
+import com.example.moviejetpackcompose.ui.theme.buttonNoElevation
+import com.example.moviejetpackcompose.ui.theme.myColors
+import com.example.moviejetpackcompose.ui.theme.spacing_1
+import com.example.moviejetpackcompose.ui.theme.spacing_1_2
+import com.example.moviejetpackcompose.ui.theme.spacing_2
+import com.example.moviejetpackcompose.ui.theme.spacing_25
+import com.example.moviejetpackcompose.ui.theme.spacing_2_2
+import com.example.moviejetpackcompose.ui.theme.spacing_3
+import com.example.moviejetpackcompose.ui.theme.spacing_37_2
+import com.example.moviejetpackcompose.ui.theme.spacing_4
+import com.example.moviejetpackcompose.ui.theme.spacing_6
+import com.example.moviejetpackcompose.ui.theme.view_25
+import com.example.moviejetpackcompose.ui.theme.view_6
+import com.example.moviejetpackcompose.ui.theme.view_75
 import com.example.moviejetpackcompose.ui.views.BlackVerticalGradient
 import com.example.moviejetpackcompose.ui.views.CategoryChip
 import com.example.moviejetpackcompose.ui.views.Loading
@@ -97,16 +120,20 @@ fun DetailScreen(
     ) {
         val (loading, content, booking) = createRefs()
         if (showLoading(uiState)) {
-            Loading(modifier = Modifier.constrainAs(loading) {
-                linkTo(
-                    start = parent.start,
-                    end = parent.end
-                )
-                linkTo(
-                    top = parent.top,
-                    bottom = parent.bottom
-                )
-            })
+            Loading(
+                modifier = Modifier.constrainAs(
+                    loading
+                ) {
+                    linkTo(
+                        start = parent.start,
+                        end = parent.end
+                    )
+                    linkTo(
+                        top = parent.top,
+                        bottom = parent.bottom
+                    )
+                }
+            )
         } else {
             getDataFromUiState(uiState)?.let { movieModel ->
                 MovieDetailContent(
@@ -143,7 +170,6 @@ fun DetailScreen(
                     }
                 }
             }
-
         }
     }
 }
@@ -154,7 +180,6 @@ fun MovieDetailContent(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-
     val state = rememberScrollState()
     ConstraintLayout(
         modifier = modifier
@@ -368,7 +393,7 @@ fun MovieTextContent(
                 .constrainAs(categories) {
                     linkTo(
                         start = parent.start,
-                        end = parent.end,
+                        end = parent.end
                     )
                     top.linkTo(title.bottom, spacing_3)
                     width = Dimension.fillToConstraints
@@ -377,7 +402,7 @@ fun MovieTextContent(
         Text(
             text = "${movie.overview.orEmpty()} ${movie.overview.orEmpty()}",
             textAlign = TextAlign.Justify,
-            style = Typography.body2,
+            style = MaterialTheme.typography.body2,
             color = myColors.surface,
             modifier = Modifier
                 .constrainAs(overview) {
@@ -400,7 +425,7 @@ fun MovieTextContent(
 fun IMDBRanking(modifier: Modifier = Modifier) {
     Text(
         text = "IMDB 7.0",
-        style = Typography.body2,
+        style = MaterialTheme.typography.body2,
         color = Color.Black,
         modifier = modifier
             .background(
@@ -444,7 +469,7 @@ fun VoteMovie(
         )
         Text(
             text = voteAverage.toBigDecimal().setScale(1, RoundingMode.CEILING).toString(),
-            style = Typography.h6,
+            style = MaterialTheme.typography.h6,
             color = Gold,
             modifier = Modifier
                 .constrainAs(voteAverageRef) {
@@ -456,8 +481,8 @@ fun VoteMovie(
                 }
         )
         Text(
-            text = "(${voteCount} reviews)",
-            style = Typography.caption,
+            text = "($voteCount reviews)",
+            style = MaterialTheme.typography.caption,
             color = myColors.surface,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -588,12 +613,10 @@ fun Booking(
                 ) { targetState ->
                     Text(
                         text = if (targetState) "Remove Booking" else "Booking",
-                        style = Typography.button
+                        style = MaterialTheme.typography.button
                     )
                 }
-
             }
         }
     }
 }
-

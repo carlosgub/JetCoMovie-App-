@@ -9,8 +9,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import com.example.moviejetpackcompose.helpers.HALF_SCREEN
-
-
 @Composable
 fun BlackVerticalGradient(
     size: Dp,

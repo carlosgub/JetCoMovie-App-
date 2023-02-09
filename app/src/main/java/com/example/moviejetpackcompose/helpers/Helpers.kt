@@ -3,7 +3,7 @@ package com.example.moviejetpackcompose.helpers
 import com.example.moviejetpackcompose.core.sealed.GenericState
 
 fun <T> showLoading(
-    uiState: GenericState<T>,
+    uiState: GenericState<T>
 ): Boolean = when (uiState) {
     is GenericState.Error -> false
     GenericState.Loading -> true
@@ -18,4 +18,3 @@ fun <T> getDataFromUiState(
     } else {
         null
     }
-

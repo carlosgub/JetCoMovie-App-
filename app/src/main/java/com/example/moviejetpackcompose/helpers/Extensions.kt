@@ -1,12 +1,11 @@
 package com.example.moviejetpackcompose.helpers
 
-import com.example.moviejetpackcompose.data.database.model.MovieEntity
-import com.example.moviejetpackcompose.data.network.response.MovieDetailResponse
 import com.example.moviejetpackcompose.data.database.model.CategoryEntity
+import com.example.moviejetpackcompose.data.database.model.MovieEntity
 import com.example.moviejetpackcompose.data.network.response.CategoriesResponse
+import com.example.moviejetpackcompose.data.network.response.MovieDetailResponse
 import com.example.moviejetpackcompose.data.network.response.MovieResponse
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
-
 
 fun MovieResponse.toMovieModel(categories: List<CategoryEntity>): MovieModel {
     val categoryMap = categories.associate {
