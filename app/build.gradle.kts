@@ -121,17 +121,17 @@ dependencies {
 
     //Testing
     testImplementation("junit:junit:4.13.2")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeUiVersion")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeUiVersion")
+    testImplementation("androidx.arch.core:core-testing:2.1.0@aar")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation("org.mockito:mockito-inline:3.11.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("junit:junit:4.13.2")
+
+    //Android Testing
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeUiVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeUiVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeUiVersion")
 
-    //MockK
-    testImplementation("io.mockk:mockk:1.13.4")
-
-    testImplementation("androidx.arch.core:core-testing:2.1.0@aar")
-
-    //Coroutines
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 }

@@ -19,16 +19,22 @@ class MovieViewModel @Inject constructor(
     getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase
 ) : ViewModel() {
 
-    val uiState: StateFlow<GenericState<List<MovieModel>>> = getNowPlayingMoviesUseCase()
-        .map {
-            GenericState.Success(it)
-        }
-        .catch {
-            GenericState.Error(it.message.orEmpty())
-        }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
-            GenericState.Loading
-        )
+    val uiState: StateFlow<GenericState<List<MovieModel>>> by lazy {
+        getNowPlayingMoviesUseCase()
+            .map {
+                try {
+                    GenericState.Success(it)
+                } catch (e: Exception) {
+                    GenericState.Error(e.message.orEmpty())
+                }
+            }
+            .catch {
+                GenericState.Error(it.message.orEmpty())
+            }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
+                GenericState.Loading
+            )
+    }
 }
