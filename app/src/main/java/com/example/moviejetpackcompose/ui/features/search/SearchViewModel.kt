@@ -69,7 +69,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    companion object{
+    companion object {
         const val DEBOUNCE_TIME = 300L
     }
 }
