@@ -29,7 +29,6 @@ class MovieViewModel @Inject constructor(
 
     private fun getMovies() {
         viewModelScope.launch(dispatcherProvider.main) {
-            _uiState.value = GenericState.Loading
             getNowPlayingMoviesUseCase()
                 .flowOn(dispatcherProvider.io)
                 .catch {

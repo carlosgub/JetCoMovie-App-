@@ -2,8 +2,8 @@ package com.example.moviejetpackcompose.ui.features.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviejetpackcompose.core.DispatcherProvider
 import com.example.moviejetpackcompose.core.sealed.GenericState
-import com.example.moviejetpackcompose.helpers.TIMEOUT_FLOW
 import com.example.moviejetpackcompose.model.usecase.BookingMovieUseCase
 import com.example.moviejetpackcompose.model.usecase.DeleteBookingMovieUseCase
 import com.example.moviejetpackcompose.model.usecase.GetMovieDetailUseCase
@@ -11,11 +11,10 @@ import com.example.moviejetpackcompose.model.usecase.IsMovieBookedUseCase
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,40 +23,39 @@ class DetailViewModel @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
     private val isMovieBookedUseCase: IsMovieBookedUseCase,
     private val bookingMovieUseCase: BookingMovieUseCase,
-    private val deleteBookingMovieUseCase: DeleteBookingMovieUseCase
+    private val deleteBookingMovieUseCase: DeleteBookingMovieUseCase,
+    private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
-    lateinit var uiState: StateFlow<GenericState<MovieModel>>
-    lateinit var bookingState: StateFlow<GenericState<Boolean>>
+    private val _uiState = MutableStateFlow<GenericState<MovieModel>>(GenericState.Loading)
+    val uiState: StateFlow<GenericState<MovieModel>> = _uiState
+    private val _bookingState = MutableStateFlow<GenericState<Boolean>>(GenericState.None)
+    val bookingState: StateFlow<GenericState<Boolean>> = _bookingState
 
     fun getMovieDetail(movieId: String) {
-        uiState = getMovieDetailUseCase(movieId)
-            .map {
-                GenericState.Success(it)
-            }
-            .catch {
-                GenericState.Error(it.message.orEmpty())
-            }
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
-                GenericState.Loading
-            )
+        viewModelScope.launch(dispatcherProvider.main) {
+            getMovieDetailUseCase(movieId)
+                .flowOn(dispatcherProvider.io)
+                .catch {
+                    _uiState.value = GenericState.Error(it.message.orEmpty())
+                }
+                .collect {
+                    _uiState.value = GenericState.Success(it)
+                }
+        }
     }
 
     fun isMovieBookedState(movieId: String) {
-        bookingState = isMovieBookedUseCase(movieId)
-            .map {
-                GenericState.Success(it)
-            }
-            .catch {
-                GenericState.Error(it.message.orEmpty())
-            }
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(TIMEOUT_FLOW),
-                GenericState.Loading
-            )
+        viewModelScope.launch(dispatcherProvider.main) {
+            isMovieBookedUseCase(movieId)
+                .flowOn(dispatcherProvider.io)
+                .catch {
+                    _bookingState.value = GenericState.Error(it.message.orEmpty())
+                }
+                .collect {
+                    _bookingState.value = GenericState.Success(it)
+                }
+        }
     }
 
     fun bookingMovie(movie: MovieModel) {

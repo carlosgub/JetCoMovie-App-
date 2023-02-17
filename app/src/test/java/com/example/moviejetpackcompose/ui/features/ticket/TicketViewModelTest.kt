@@ -1,11 +1,11 @@
-package com.example.moviejetpackcompose.ui.features.movie
+package com.example.moviejetpackcompose.ui.features.ticket
 
 import app.cash.turbine.test
 import com.example.moviejetpackcompose.core.DispatcherProvider
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.helpers.TestDispatcherProvider
 import com.example.moviejetpackcompose.helpers.movieModel
-import com.example.moviejetpackcompose.model.usecase.GetNowPlayingMoviesUseCase
+import com.example.moviejetpackcompose.model.usecase.GetMoviesBookedUseCase
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -23,7 +23,7 @@ import org.junit.runners.JUnit4
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class MovieViewModelTest {
+class TicketViewModelTest {
 
     @get:Rule
     val mockkRule = MockKRule(this)
@@ -31,62 +31,72 @@ class MovieViewModelTest {
     private val dispatcherProvider: DispatcherProvider = TestDispatcherProvider()
 
     @MockK
-    lateinit var getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase
+    lateinit var getMoviesBookedUseCase: GetMoviesBookedUseCase
+
+    private val message = "Error"
 
     @Test
-    fun `get recent movies successfully`() = runTest {
-        val list = listOf(
-            movieModel
-        )
+    fun `get tickets successfully`() = runTest {
+        val list = listOf(movieModel)
 
         every {
-            getNowPlayingMoviesUseCase.invoke()
+            getMoviesBookedUseCase.invoke()
         }.returns(
             flowOf(list)
         )
         val viewModel =
-            MovieViewModel(getNowPlayingMoviesUseCase, dispatcherProvider)
+            TicketViewModel(
+                getMoviesBookedUseCase,
+                dispatcherProvider
+            )
         viewModel.uiState.test {
             assertEquals(GenericState.Success(list), awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
-        verify { getNowPlayingMoviesUseCase.invoke() }
+        verify { getMoviesBookedUseCase.invoke() }
     }
 
     @Test
-    fun `get recent movies empty list`() = runTest {
+    fun `get tickets empty successfully`() = runTest {
         val list = listOf<MovieModel>()
 
         every {
-            getNowPlayingMoviesUseCase.invoke()
+            getMoviesBookedUseCase.invoke()
         }.returns(
             flowOf(list)
         )
         val viewModel =
-            MovieViewModel(getNowPlayingMoviesUseCase, dispatcherProvider)
+            TicketViewModel(
+                getMoviesBookedUseCase,
+                dispatcherProvider
+            )
         viewModel.uiState.test {
             assertEquals(GenericState.Success(list), awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
-        verify { getNowPlayingMoviesUseCase.invoke() }
+        verify { getMoviesBookedUseCase.invoke() }
     }
 
     @Test
-    fun `get recent movies error`() = runTest {
-        val message = "Error"
+    fun `get tickets error`() = runTest {
         every {
-            getNowPlayingMoviesUseCase.invoke()
+            getMoviesBookedUseCase.invoke()
         }.returns(
             flow {
                 throw IllegalStateException(message)
             }
         )
         val viewModel =
-            MovieViewModel(getNowPlayingMoviesUseCase, dispatcherProvider)
+            TicketViewModel(
+                getMoviesBookedUseCase,
+                dispatcherProvider
+            )
         viewModel.uiState.test {
             assertEquals(GenericState.Error(message), awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
-        verify { getNowPlayingMoviesUseCase.invoke() }
+        verify {
+            getMoviesBookedUseCase.invoke()
+        }
     }
 }
