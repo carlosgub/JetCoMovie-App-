@@ -39,12 +39,10 @@ class SearchViewModel @Inject constructor(
     }
 
     fun queryFieldChange(query: String) {
-        viewModelScope.launch(dispatcherProvider.main) {
-            if (query.length >= MINIMUM_CHARACTERS_TO_SEARCH) {
-                _uiState.value = GenericState.Loading
-            }
-            _query.value = query
+        if (query.length >= MINIMUM_CHARACTERS_TO_SEARCH) {
+            _uiState.value = GenericState.Loading
         }
+        _query.value = query
     }
 
     fun search() {

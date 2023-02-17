@@ -30,5 +30,7 @@ jobs:
       run: ./gradlew :app:lintKotlinMain
     - name: Run lint test
       run: ./gradlew :app:lintKotlinTest
+    - name: Run test
+      run: ./gradlew :app:testDebugUnitTest
     - name: Build with Gradle
       run: ./gradlew build
