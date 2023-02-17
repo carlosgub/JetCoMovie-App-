@@ -7,6 +7,7 @@ fun <T> showLoading(
 ): Boolean = when (uiState) {
     is GenericState.Error -> false
     GenericState.Loading -> true
+    GenericState.None -> false
     is GenericState.Success -> false
 }
 

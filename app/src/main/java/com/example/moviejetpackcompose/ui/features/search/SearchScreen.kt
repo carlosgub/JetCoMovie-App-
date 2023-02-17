@@ -46,6 +46,7 @@ import com.example.moviejetpackcompose.R
 import com.example.moviejetpackcompose.core.sealed.GenericState
 import com.example.moviejetpackcompose.helpers.MINIMUM_CHARACTERS_TO_SEARCH
 import com.example.moviejetpackcompose.helpers.getDataFromUiState
+import com.example.moviejetpackcompose.helpers.showLoading
 import com.example.moviejetpackcompose.ui.features.model.MovieModel
 import com.example.moviejetpackcompose.ui.theme.RoundedShape
 import com.example.moviejetpackcompose.ui.theme.TextFieldBackgroundColor
@@ -70,7 +71,6 @@ fun SearchScreen(
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val keyboardController = LocalSoftwareKeyboardController.current
     val queryValue: String by viewModel.query.observeAsState(initial = "")
-    val showLoading: Boolean by viewModel.loading.observeAsState(initial = false)
     val uiState by produceState<GenericState<List<MovieModel>>>(
         initialValue = GenericState.Loading,
         key1 = lifecycle,
@@ -108,7 +108,6 @@ fun SearchScreen(
             uiState = uiState,
             queryValue = queryValue,
             keyboardController = keyboardController,
-            showLoading = showLoading,
             modifier = Modifier.constrainAs(content) {
                 linkTo(
                     start = parent.start,
@@ -184,7 +183,6 @@ fun SearchContent(
     uiState: GenericState<List<MovieModel>>,
     queryValue: String,
     keyboardController: SoftwareKeyboardController?,
-    showLoading: Boolean,
     modifier: Modifier = Modifier,
     onItemListClicked: (Int) -> Unit
 ) {
@@ -206,7 +204,7 @@ fun SearchContent(
                     top.linkTo(parent.top, spacing_4)
                 }
             )
-        } else if (showLoading && queryValue.isNotEmpty()) {
+        } else if (showLoading(uiState) && queryValue.isNotEmpty()) {
             Loading(
                 modifier = Modifier.constrainAs(loading) {
                     linkTo(
