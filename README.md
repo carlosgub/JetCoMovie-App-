@@ -20,13 +20,13 @@ This is an example of an Android App who uses Jetpack Compose to draw the UI, Ko
 - [X] Create text styles and dimens for the views and do some refactor.
 - [X] Add light/dark theme (change the theme in your device settings)
 
-## V5 ![](https://geps.dev/progress/70)
+## V5 ![](https://geps.dev/progress/100)
 - [X] Add klint and detekt to the project
 - [X] Add Github Action to the repository to run klint and detekt
-- [ ] Add Unit test.
+- [X] Add Unit test.
 
-## V6
-- [ ] Add Jacoco to review code test coverage
+## V6 ![](https://geps.dev/progress/0)
+- [ ] Add Jacoco to review code test coverage and more unit test
 - [ ] Add support to different Screens.
 
 ## V7
